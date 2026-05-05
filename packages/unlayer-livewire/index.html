@@ -1,0 +1,460 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><script>
+      (() => {
+        const theme = localStorage.getItem('zpmlabber-theme') || 'system';
+        const resolved = theme === 'system'
+          ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+          : theme;
+        document.documentElement.dataset.themePreference = theme;
+        document.documentElement.dataset.theme = resolved;
+        document.documentElement.style.colorScheme = resolved;
+      })();
+    </script><title>Unlayer Livewire | ZPMLabber Packages</title><meta name="description" content="Livewire wrapper for the Unlayer email editor."><link rel="canonical" href="https://zpm-labber.github.io/packages/unlayer-livewire/"><meta property="og:title" content="Unlayer Livewire | ZPMLabber Packages"><meta property="og:description" content="Livewire wrapper for the Unlayer email editor."><meta property="og:type" content="website"><meta property="og:url" content="https://zpm-labber.github.io/packages/unlayer-livewire/"><meta property="og:image" content="https://zpm-labber.github.io/og-default.svg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Unlayer Livewire | ZPMLabber Packages"><meta name="twitter:description" content="Livewire wrapper for the Unlayer email editor."><meta name="twitter:image" content="https://zpm-labber.github.io/og-default.svg"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/_astro/BaseLayout.JifKOp_t.css"></head> <body id="site-top"> <header class="sticky top-0 z-50 border-b border-cyan-300/10 bg-void/82 backdrop-blur-xl"> <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8" aria-label="Primary"> <a href="/" class="flex items-center gap-3 font-semibold"> <img class="h-10 w-10 rounded-md border border-cyan-300/35 bg-cyan-300/10 object-cover shadow-[0_0_24px_rgba(0,229,255,0.12)]" src="/zpmlabber.png" alt="ZPMLabber logo" loading="eager"> <span> <span class="block text-white">ZPMLabber</span> <span class="hidden font-mono text-[0.68rem] sm:block"> <span class="workstation-label">workstation:</span> <span class="status-online">online</span> </span> </span> </a> <div class="hidden items-center gap-1 rounded-lg border border-white/10 bg-white/[0.035] p-1 font-mono md:flex"> <a class="rounded-md px-3 py-2 text-xs text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100" href="/">/root</a><a class="rounded-md px-3 py-2 text-xs text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100" href="/about">/about</a><a class="rounded-md px-3 py-2 text-xs text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100" href="/blog">/blog</a><a class="rounded-md px-3 py-2 text-xs text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100" href="/projects">/projects</a><a class="rounded-md px-3 py-2 text-xs text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100" href="/packages">/packages</a><a class="rounded-md px-3 py-2 text-xs text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100" href="/ecosystems">/ecosystems</a> </div> <div class="flex items-center gap-2"> <div class="theme-switcher" aria-label="Theme preference"> <button type="button" data-theme-choice="system" aria-pressed="true">system</button> <button type="button" data-theme-choice="dark" aria-pressed="false">dark</button> <button type="button" data-theme-choice="light" aria-pressed="false">light</button> </div> <script>
+  (() => {
+    const storageKey = 'zpmlabber-theme';
+    const root = document.documentElement;
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    const buttons = Array.from(document.querySelectorAll('[data-theme-choice]'));
+
+    const storedTheme = () => localStorage.getItem(storageKey) || 'system';
+    const resolvedTheme = (theme) => theme === 'system' ? (media.matches ? 'dark' : 'light') : theme;
+
+    const applyTheme = (theme) => {
+      const resolved = resolvedTheme(theme);
+      root.dataset.themePreference = theme;
+      root.dataset.theme = resolved;
+      root.style.colorScheme = resolved;
+      buttons.forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.dataset.themeChoice === theme));
+      });
+    };
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const theme = button.dataset.themeChoice || 'system';
+        if (theme === 'system') {
+          localStorage.removeItem(storageKey);
+        } else {
+          localStorage.setItem(storageKey, theme);
+        }
+        applyTheme(theme);
+      });
+    });
+
+    media.addEventListener('change', () => {
+      if (storedTheme() === 'system') applyTheme('system');
+    });
+
+    applyTheme(storedTheme());
+  })();
+</script> <a class="search-trigger" href="/search" data-search-open aria-label="Open search"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"> <circle cx="11" cy="11" r="7"></circle> <path d="m20 20-3.5-3.5"></path> </svg> </a> <details class="relative md:hidden [&_summary::-webkit-details-marker]:hidden"> <summary class="block list-none cursor-pointer rounded-md border border-cyan-300/20 px-3 py-2 font-mono text-sm text-cyan-100 marker:content-none">menu</summary> <div class="absolute right-0 top-full z-50 mt-3 w-52"> <div class="terminal-pane rounded-lg p-2 shadow-[0_18px_48px_rgba(15,23,42,0.28)]"> <a class="block rounded-md px-3 py-2 font-mono text-sm text-slate-200 hover:bg-cyan-300/10" href="/">cd /root</a><a class="block rounded-md px-3 py-2 font-mono text-sm text-slate-200 hover:bg-cyan-300/10" href="/about">cd /about</a><a class="block rounded-md px-3 py-2 font-mono text-sm text-slate-200 hover:bg-cyan-300/10" href="/blog">cd /blog</a><a class="block rounded-md px-3 py-2 font-mono text-sm text-slate-200 hover:bg-cyan-300/10" href="/projects">cd /projects</a><a class="block rounded-md px-3 py-2 font-mono text-sm text-slate-200 hover:bg-cyan-300/10" href="/packages">cd /packages</a><a class="block rounded-md px-3 py-2 font-mono text-sm text-slate-200 hover:bg-cyan-300/10" href="/ecosystems">cd /ecosystems</a> </div> </div> </details> </div> </nav> </header> <main data-pagefind-body>  <article class="mx-auto max-w-4xl px-4 py-14 sm:px-6 lg:px-8"> <p class="prompt mb-5 text-sm">inspect package unlayer-livewire</p> <div class="mb-5 flex flex-wrap gap-2"> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-cyan-300/30 bg-cyan-300/10 text-cyan-100 shadow-cyan-950/30"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> stable </span> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-violet-300/30 bg-violet-400/10 text-violet-100"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> Community SDKs </span> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> PHP </span> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> Laravel </span><span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> Livewire </span> </div> <h1 class="text-4xl font-semibold text-white md:text-6xl">Unlayer Livewire</h1> <p class="mt-5 text-lg leading-8 text-slate-300">Livewire wrapper for the Unlayer email editor.</p> <code class="mt-7 block overflow-x-auto rounded-lg border border-emerald-300/20 bg-slate-950/90 p-4 font-mono text-emerald-100"><span class="text-cyan-200">$</span> composer require community-sdks/unlayer-livewire</code> <div class="mt-7 flex flex-wrap gap-3"> <a class="command-link" href="https://github.com/community-sdks/unlayer-livewire">git remote</a> <a class="command-link" href="https://packagist.org/packages/community-sdks/unlayer-livewire">open registry</a> </div> <div class="terminal-pane mt-10 rounded-lg p-6"> <div class="prose prose-lg prose-invert prose-zpm max-w-none"> <h2 id="unlayer-inside-livewire">Unlayer Inside Livewire</h2>
+<p>A good email editor integration is not only about rendering the editor.</p>
+<p>It has to keep state synced.
+It has to export HTML and design JSON.
+It has to upload images.
+It has to load templates.
+It has to work inside a Laravel application without turning the whole page into a frontend app.</p>
+<p><strong>Unlayer Livewire</strong> is a Laravel and Livewire wrapper for the Unlayer editor, built on top of the Alpine adapter and the TypeScript SDK.</p>
+<p>The goal is simple: use Unlayer in Livewire pages while keeping the browser editor lifecycle in the frontend packages where it belongs.</p>
+<h2 id="why-this-package-exists">Why This Package Exists</h2>
+<p>Livewire is great when you want server-rendered Laravel pages with rich interactions.</p>
+<p>But Unlayer is a browser editor.</p>
+<p>That means the integration has to respect both sides:</p>
+<p>The editor lifecycle belongs in JavaScript.
+The application state belongs in Livewire.
+Uploads should use Laravel storage.
+Template proxy routes should live in Laravel.
+The Blade usage should stay simple.</p>
+<p>This package connects those pieces without forcing every Laravel project to rebuild the same bridge.</p>
+<h2 id="built-on-the-unlayer-stack">Built on the Unlayer Stack</h2>
+<p>Unlayer Livewire does not try to duplicate the lower-level editor logic.</p>
+<p>It wraps <code>@community-sdks/unlayer-alpinejs</code>, which itself wraps <code>@community-sdks/unlayer-ts</code>.</p>
+<p>That keeps the responsibilities clean.</p>
+<p><code>unlayer-ts</code> handles the framework-free editor wrapper.
+<code>unlayer-alpinejs</code> exposes that wrapper through Alpine.
+<code>unlayer-livewire</code> connects the editor to Laravel and Livewire.</p>
+<p>This gives the package a Laravel-friendly API while still sharing the same browser foundation as the other Unlayer packages.</p>
+<h2 id="installation">Installation</h2>
+<p>Install the PHP package:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">composer</span><span style="color:#9ECBFF"> require</span><span style="color:#9ECBFF"> community-sdks/unlayer-livewire</span></span></code></pre>
+<p>Then install the browser asset:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">php</span><span style="color:#9ECBFF"> artisan</span><span style="color:#9ECBFF"> unlayer-livewire:install</span></span></code></pre>
+<p>This publishes the compiled browser file to:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>public/unlayer-livewire.js</span></span></code></pre>
+<p>After upgrading the package, publish the new asset again:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">php</span><span style="color:#9ECBFF"> artisan</span><span style="color:#9ECBFF"> vendor:publish</span><span style="color:#79B8FF"> --tag=unlayer-livewire-assets</span><span style="color:#79B8FF"> --force</span></span></code></pre>
+<p>If you want to customize upload storage, publish the config too:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">php</span><span style="color:#9ECBFF"> artisan</span><span style="color:#9ECBFF"> unlayer-livewire:install</span><span style="color:#79B8FF"> --config</span></span></code></pre>
+<p>Or publish assets and config manually:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">php</span><span style="color:#9ECBFF"> artisan</span><span style="color:#9ECBFF"> vendor:publish</span><span style="color:#79B8FF"> --tag=unlayer-livewire-assets</span><span style="color:#79B8FF"> --force</span></span>
+<span class="line"><span style="color:#B392F0">php</span><span style="color:#9ECBFF"> artisan</span><span style="color:#9ECBFF"> vendor:publish</span><span style="color:#79B8FF"> --tag=unlayer-livewire-config</span></span></code></pre>
+<h2 id="basic-usage">Basic Usage</h2>
+<p>The package provides a Livewire component that can be used directly inside a Blade view.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="blade"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">livewire:unlayer-livewire.editor</span></span>
+<span class="line"><span style="color:#B392F0">    :state</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">$content</span><span style="color:#9ECBFF">"</span></span>
+<span class="line"><span style="color:#B392F0">    display-mode</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"email"</span></span>
+<span class="line"><span style="color:#B392F0">    height</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"720px"</span></span>
+<span class="line"><span style="color:#E1E4E8">/></span></span></code></pre>
+<p>The state is an array with HTML and design JSON:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="php"><code><span class="line"><span style="color:#E1E4E8">[</span></span>
+<span class="line"><span style="color:#9ECBFF">    'html'</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> ''</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    'design'</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> [],</span></span>
+<span class="line"><span style="color:#E1E4E8">]</span></span></code></pre>
+<p>For Eloquent models, the editor content should usually be stored in a JSON column and cast to an array:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="php"><code><span class="line"><span style="color:#F97583">protected</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> casts</span><span style="color:#E1E4E8">()</span><span style="color:#F97583">:</span><span style="color:#F97583"> array</span></span>
+<span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> [</span></span>
+<span class="line"><span style="color:#9ECBFF">        'content'</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> 'array'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    ];</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>That gives the application one clean field for both rendered HTML and editable Unlayer design data.</p>
+<h2 id="livewire-methods">Livewire Methods</h2>
+<p>The PHP Livewire component exposes useful methods for controlling editor state:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="php"><code><span class="line"><span style="color:#B392F0">setState</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">array</span><span style="color:#E1E4E8"> $state): </span><span style="color:#79B8FF">void</span></span>
+<span class="line"><span style="color:#B392F0">loadDesign</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">array</span><span style="color:#E1E4E8"> $design): </span><span style="color:#79B8FF">void</span></span>
+<span class="line"><span style="color:#B392F0">clear</span><span style="color:#E1E4E8">(): </span><span style="color:#79B8FF">void</span></span>
+<span class="line"><span style="color:#B392F0">exported</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">array</span><span style="color:#E1E4E8"> $state): </span><span style="color:#79B8FF">void</span></span>
+<span class="line"><span style="color:#B392F0">resolveUploadedImage</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">string</span><span style="color:#E1E4E8"> $temporaryFilename): </span><span style="color:#F97583">string</span></span></code></pre>
+<p>This is useful when the application needs to reset the editor, load a saved design, export the current state, or resolve uploaded images through Laravel storage.</p>
+<p>The important part is that the editor state is not trapped inside the browser.</p>
+<p>Livewire can receive it, store it, validate around it, and persist it like normal application data.</p>
+<h2 id="image-uploads">Image Uploads</h2>
+<p>Image uploads use Livewire’s JavaScript upload API.</p>
+<p>The editor uploads a file to the component property <code>imageUpload</code>, then the component calls <code>resolveUploadedImage()</code> to store it and return the public URL.</p>
+<p>Storage can be configured in <code>config/unlayer-livewire.php</code>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="php"><code><span class="line"><span style="color:#F97583">return</span><span style="color:#E1E4E8"> [</span></span>
+<span class="line"><span style="color:#9ECBFF">    'upload'</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> [</span></span>
+<span class="line"><span style="color:#9ECBFF">        'disk'</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> 'public'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        'path'</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> 'unlayer-livewire'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        'visibility'</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> 'public'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    ],</span></span>
+<span class="line"><span style="color:#E1E4E8">];</span></span></code></pre>
+<p>Make sure the public disk is linked:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">php</span><span style="color:#9ECBFF"> artisan</span><span style="color:#9ECBFF"> storage:link</span></span></code></pre>
+<p>This keeps uploads in Laravel instead of hardcoding storage behavior into the frontend editor wrapper.</p>
+<h2 id="stock-templates-through-laravel">Stock Templates Through Laravel</h2>
+<p>Template search is one of the places where a backend wrapper matters.</p>
+<p>Unlayer’s public stock template search endpoint does not allow browser CORS requests, so browser code should not call it directly.</p>
+<p>The clean flow is:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>Livewire page -> Laravel proxy route -> Unlayer template API</span></span></code></pre>
+<p>The package includes same-origin Laravel proxy routes:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>GET /unlayer-livewire/templates</span></span>
+<span class="line"><span>GET /unlayer-livewire/templates/{template}</span></span></code></pre>
+<p>Because they are same-origin routes, the browser calls your Laravel app. Laravel then calls Unlayer from the backend.</p>
+<p>This avoids the CORS problem and keeps the frontend integration simple.</p>
+<h2 id="template-picker">Template Picker</h2>
+<p>The editor can be configured with default template filters and a built-in template picker.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="blade"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">livewire:unlayer-livewire.editor</span></span>
+<span class="line"><span style="color:#B392F0">    :state</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">$content</span><span style="color:#9ECBFF">"</span></span>
+<span class="line"><span style="color:#B392F0">    display-mode</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"email"</span></span>
+<span class="line"><span style="color:#B392F0">    height</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"720px"</span></span>
+<span class="line"><span style="color:#B392F0">    :template-picker</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"</span><span style="color:#79B8FF">true</span><span style="color:#9ECBFF">"</span></span>
+<span class="line"><span style="color:#B392F0">    :template-search</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">[</span></span>
+<span class="line"><span style="color:#9ECBFF">        'search'</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> 'newsletter'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        'type'</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> 'email'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        'premium'</span><span style="color:#F97583"> =></span><span style="color:#79B8FF"> false</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        'limit'</span><span style="color:#F97583"> =></span><span style="color:#79B8FF"> 20</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        'offset'</span><span style="color:#F97583"> =></span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        'collection'</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> ''</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        'sort'</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> 'recent'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    ]</span><span style="color:#9ECBFF">"</span></span>
+<span class="line"><span style="color:#E1E4E8">/></span></span></code></pre>
+<p>The template trigger is shown in a small toolbar above the editor. The picker opens over the editor itself, without a page backdrop.</p>
+<p>That makes it feel like part of the editor, not like a completely separate application screen.</p>
+<h2 id="route-configuration">Route Configuration</h2>
+<p>The template routes can be customized in <code>config/unlayer-livewire.php</code>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="php"><code><span class="line"><span style="color:#9ECBFF">'routes'</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> [</span></span>
+<span class="line"><span style="color:#9ECBFF">    'prefix'</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> 'unlayer-livewire'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    'middleware'</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> [</span><span style="color:#9ECBFF">'web'</span><span style="color:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#E1E4E8">],</span></span></code></pre>
+<p>This is useful when the editor is used inside a larger Laravel app with custom route groups, tenant middleware, auth middleware, or admin-only access.</p>
+<h2 id="how-template-search-maps-to-unlayer">How Template Search Maps to Unlayer</h2>
+<p>The Livewire <code>template-search</code> values are mapped to Unlayer’s request body behind the proxy.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>search     -> filter.name</span></span>
+<span class="line"><span>type       -> filter.type</span></span>
+<span class="line"><span>premium    -> filter.premium</span></span>
+<span class="line"><span>limit      -> perPage</span></span>
+<span class="line"><span>offset     -> page</span></span>
+<span class="line"><span>collection -> filter.collection</span></span>
+<span class="line"><span>sort       -> filter.sortBy</span></span></code></pre>
+<p>The package handles that mapping so the Blade usage can stay readable.</p>
+<h2 id="examples-included">Examples Included</h2>
+<p>The repository includes Laravel-ready example snippets:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>examples/routes/web.php.stub</span></span>
+<span class="line"><span>examples/views/basic.blade.php</span></span>
+<span class="line"><span>examples/views/templates.blade.php</span></span></code></pre>
+<p>The basic example renders the editor with an empty state.</p>
+<p>The template example enables the built-in picker UI and the same-origin Laravel template proxy.</p>
+<p>These examples are useful because editor integrations are easier to trust when they can be tested inside a real Laravel page.</p>
+<h2 id="development">Development</h2>
+<p>The browser adapter can be built from the package repository:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span></span>
+<span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> run</span><span style="color:#9ECBFF"> build</span></span></code></pre>
+<p>Then republish the built asset into a Laravel app:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">php</span><span style="color:#9ECBFF"> artisan</span><span style="color:#9ECBFF"> vendor:publish</span><span style="color:#79B8FF"> --tag=unlayer-livewire-assets</span><span style="color:#79B8FF"> --force</span></span></code></pre>
+<p>Run TypeScript checks:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> run</span><span style="color:#9ECBFF"> typecheck</span></span></code></pre>
+<p>Format PHP:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">vendor/bin/pint</span></span></code></pre>
+<h2 id="why-this-package-matters">Why This Package Matters</h2>
+<p>This package is the Laravel bridge in the Unlayer ecosystem.</p>
+<p>The TypeScript SDK gives a reusable editor foundation.
+The Alpine adapter makes that foundation usable in lightweight browser pages.
+The Livewire wrapper makes it feel at home in Laravel applications.</p>
+<p>That matters because email editors usually live inside business software, not isolated demos.</p>
+<p>They need uploads, saved state, template loading, proxy routes, and integration with existing Laravel models.</p>
+<p>Unlayer Livewire keeps that integration small, focused, and reusable.</p>
+<h2 id="package">Package</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">composer</span><span style="color:#9ECBFF"> require</span><span style="color:#9ECBFF"> community-sdks/unlayer-livewire</span></span></code></pre>
+<p>Repository:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>https://github.com/community-sdks/unlayer-livewire</span></span></code></pre>
+<p>Registry:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>https://packagist.org/packages/community-sdks/unlayer-livewire</span></span></code></pre> </div> </div> </article>  </main> <footer class="border-t border-cyan-300/10 bg-void/65"> <div class="mx-auto grid max-w-6xl gap-8 px-4 py-10 text-sm text-slate-400 sm:px-6 md:grid-cols-[1fr_auto] lg:px-8"> <div> <p class="prompt text-sm">cat /var/status/zpmlabber</p> <p class="mt-2 font-semibold text-white">
+ZPMLabber <span class="workstation-label">workstation</span> <span class="status-online">online</span>.
+</p> <p class="mt-2 max-w-xl">Open-source developer tools, SDKs, packages, experiments, and engineering notes.</p> </div> <div class="flex flex-wrap gap-4 font-mono"> <a class="hover:text-cyan-200" href="https://github.com/zpmlabber">GitHub</a> <a class="hover:text-cyan-200" href="/search">Search</a> <a class="hover:text-cyan-200" href="/blog">Blog</a> </div> <p class="font-mono md:col-span-2">© 2026 ZPMLabber</p> </div> </footer> <a class="back-to-top" href="#site-top" aria-label="Back to top"> <span aria-hidden="true">^</span> <span>top</span> </a> <section class="search-modal" data-search-modal hidden aria-hidden="true"> <button class="search-modal__backdrop" type="button" data-search-close aria-label="Close search"></button> <div class="search-modal__frame" data-search-frame> <div class="search-modal__dialog" data-search-dialog role="dialog" aria-modal="true" aria-labelledby="site-search-title"> <section class="search-shell terminal-pane rounded-[1.35rem]" data-search-root="modal" data-search-limit="10"> <div class="terminal-topbar"> <span class="terminal-dots" aria-hidden="true"><span></span><span></span><span></span></span> <span>~/search</span> <button class="search-shell__close" type="button" data-search-close aria-label="Close search">
+:q quit
+</button> </div> <div class="search-shell__body"> <div class="flex flex-wrap items-center justify-between gap-3"> <div> <h2 id="site-search-title" class="search-shell__title">Command Palette Search</h2> <p class="search-shell__subtitle">Search blog posts, packages, projects, and notes with the generated Pagefind index.</p> </div> <div class="search-shell__shortcut-row" aria-hidden="true"> <span class="search-shell__kbd">Ctrl K</span> <span class="search-shell__kbd">Cmd K</span> <span class="search-shell__kbd">/</span> </div> </div> <label class="search-shell__prompt" for="site-search-modal-input"> <span class="search-shell__prompt-symbol">$</span> <span class="search-shell__prompt-label">search</span> <input id="site-search-modal-input" class="search-shell__input" type="search" data-search-input placeholder="search &quot;unlayer&quot;" autocomplete="off" spellcheck="false"> </label> <div class="search-shell__meta-row font-mono text-xs"> <span data-search-meta>panel://lookup</span> <span data-search-count>00</span> </div> <p class="search-shell__status" data-search-status data-state="idle" role="status" aria-live="polite">
+Type a query to inspect the static search index.
+</p> <ol class="search-results" data-search-results></ol> <p class="search-shell__note">
+Search works after production build. Run <span class="font-mono">npm run build</span> and <span class="font-mono">npm run preview</span> to test Pagefind locally.
+</p> </div> <noscript> <p class="search-shell__noscript">Interactive search requires JavaScript. You can still browse the site through the main navigation.</p> </noscript> </section> </div> </div> </section> <script>
+  (() => {
+    if (window.__zpmlabberSearchInit) return;
+    window.__zpmlabberSearchInit = true;
+
+    const modal = document.querySelector('[data-search-modal]');
+    const modalRoot = modal?.querySelector('[data-search-root="modal"]');
+    const modalDialog = modal?.querySelector('[data-search-dialog]');
+    const modalFrame = modal?.querySelector('[data-search-frame]');
+    const openTriggers = Array.from(document.querySelectorAll('[data-search-open]'));
+    const searchRoots = Array.from(document.querySelectorAll('[data-search-root]'));
+    let pagefindPromise;
+    let lastFocusedElement = null;
+
+    const isTypingTarget = (element) => {
+      if (!(element instanceof HTMLElement)) return false;
+      const tagName = element.tagName;
+      return element.isContentEditable || tagName === 'INPUT' || tagName === 'TEXTAREA' || tagName === 'SELECT';
+    };
+
+    const getPagefind = async () => {
+      if (!pagefindPromise) {
+        pagefindPromise = import('/pagefind/pagefind.js')
+          .then(async (pagefind) => {
+            if (typeof pagefind.options === 'function') {
+              await pagefind.options({});
+            }
+            return pagefind;
+          })
+          .catch(() => null);
+      }
+
+      return pagefindPromise;
+    };
+
+    const resultPath = (url) => {
+      if (!url) return '/';
+      try {
+        return new URL(url, window.location.origin).pathname || '/';
+      } catch {
+        return url;
+      }
+    };
+
+    const createResultItem = (data, index) => {
+      const item = document.createElement('li');
+      const link = document.createElement('a');
+      const path = resultPath(data.url);
+      const title = data.meta?.title || path;
+      const excerpt = data.excerpt || data.meta?.description || 'Indexed document available in the static search catalog.';
+
+      item.className = 'search-results__item';
+      link.className = 'search-result';
+      link.href = data.url || '/search';
+
+      const indexLabel = document.createElement('span');
+      indexLabel.className = 'search-result__index';
+      indexLabel.textContent = String(index + 1).padStart(2, '0');
+
+      const pathLabel = document.createElement('p');
+      pathLabel.className = 'search-result__path';
+      pathLabel.textContent = path;
+
+      const titleLabel = document.createElement('h3');
+      titleLabel.className = 'search-result__title';
+      titleLabel.textContent = title;
+
+      const excerptLabel = document.createElement('p');
+      excerptLabel.className = 'search-result__excerpt';
+      excerptLabel.innerHTML = excerpt;
+
+      link.append(indexLabel, pathLabel, titleLabel, excerptLabel);
+      item.append(link);
+      return item;
+    };
+
+    const initializeSearchRoot = (root) => {
+      const input = root.querySelector('[data-search-input]');
+      const status = root.querySelector('[data-search-status]');
+      const results = root.querySelector('[data-search-results]');
+      const count = root.querySelector('[data-search-count]');
+      const meta = root.querySelector('[data-search-meta]');
+      const limit = Number(root.dataset.searchLimit || '10');
+      let token = 0;
+      let debounceHandle;
+
+      if (!(input instanceof HTMLInputElement) || !(status instanceof HTMLElement) || !(results instanceof HTMLElement) || !(count instanceof HTMLElement) || !(meta instanceof HTMLElement)) {
+        return;
+      }
+
+      const setStatus = (message, state = 'idle') => {
+        status.dataset.state = state;
+        status.textContent = message;
+      };
+
+      const resetState = () => {
+        results.innerHTML = '';
+        count.textContent = '00';
+        meta.textContent = 'panel://lookup';
+        setStatus('Type a query to inspect the static search index.', 'idle');
+      };
+
+      const showIndexMissing = () => {
+        results.innerHTML = '';
+        count.textContent = '--';
+        meta.textContent = 'panel://offline';
+        setStatus('Search index is available after production build. Run npm run build && npm run preview to test search locally.', 'error');
+      };
+
+      const renderResults = (query, items, total) => {
+        results.innerHTML = '';
+
+        if (!items.length) {
+          count.textContent = '00';
+          meta.textContent = 'panel://empty';
+          setStatus(`No indexed pages matched "${query}".`, 'empty');
+          return;
+        }
+
+        const fragment = document.createDocumentFragment();
+        items.forEach((item, index) => fragment.append(createResultItem(item, index)));
+        results.append(fragment);
+        count.textContent = String(items.length).padStart(2, '0');
+        meta.textContent = 'panel://results';
+        setStatus(`Found ${total} indexed ${total === 1 ? 'page' : 'pages'} for "${query}".`, 'success');
+      };
+
+      const runSearch = async (query) => {
+        const searchTerm = query.trim();
+        const currentToken = ++token;
+
+        if (!searchTerm) {
+          resetState();
+          return;
+        }
+
+        results.innerHTML = '';
+        count.textContent = '..';
+        meta.textContent = 'panel://query';
+        setStatus(`Searching Pagefind for "${searchTerm}"...`, 'loading');
+
+        const pagefind = await getPagefind();
+
+        if (!pagefind) {
+          if (currentToken !== token) return;
+          showIndexMissing();
+          return;
+        }
+
+        try {
+          const search = await pagefind.search(searchTerm);
+          const matches = Array.isArray(search?.results) ? search.results.slice(0, limit) : [];
+          const hydrated = await Promise.all(matches.map((result) => result.data()));
+
+          if (currentToken !== token) return;
+
+          renderResults(searchTerm, hydrated, search?.unfilteredResultCount ?? hydrated.length);
+        } catch {
+          if (currentToken !== token) return;
+          showIndexMissing();
+        }
+      };
+
+      input.addEventListener('input', () => {
+        window.clearTimeout(debounceHandle);
+        debounceHandle = window.setTimeout(() => runSearch(input.value), 180);
+      });
+
+      resetState();
+    };
+
+    const openModal = (trigger) => {
+      if (!(modal instanceof HTMLElement) || !(modalRoot instanceof HTMLElement)) return;
+      lastFocusedElement = trigger instanceof HTMLElement ? trigger : document.activeElement;
+      modal.hidden = false;
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('search-modal-open');
+
+      const input = modalRoot.querySelector('[data-search-input]');
+      if (input instanceof HTMLInputElement) {
+        requestAnimationFrame(() => {
+          input.focus();
+          input.select();
+        });
+      }
+    };
+
+    const closeModal = () => {
+      if (!(modal instanceof HTMLElement) || modal.hidden) return;
+      modal.hidden = true;
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('search-modal-open');
+
+      if (lastFocusedElement instanceof HTMLElement) {
+        lastFocusedElement.focus();
+      }
+    };
+
+    searchRoots.forEach(initializeSearchRoot);
+
+    openTriggers.forEach((trigger) => {
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        openModal(trigger);
+      });
+    });
+
+    modal?.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) return;
+
+      if (target.hasAttribute('data-search-close')) {
+        closeModal();
+        return;
+      }
+
+      if (modalFrame instanceof HTMLElement && modalDialog instanceof HTMLElement && modalFrame.contains(target) && !modalDialog.contains(target)) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      const activeElement = document.activeElement;
+
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        openModal(activeElement);
+        return;
+      }
+
+      if (event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey && !isTypingTarget(activeElement)) {
+        event.preventDefault();
+        openModal(activeElement);
+        return;
+      }
+
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    });
+  })();
+</script> </body></html>

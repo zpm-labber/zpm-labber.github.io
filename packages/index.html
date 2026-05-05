@@ -1,0 +1,298 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><script>
+      (() => {
+        const theme = localStorage.getItem('zpmlabber-theme') || 'system';
+        const resolved = theme === 'system'
+          ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+          : theme;
+        document.documentElement.dataset.themePreference = theme;
+        document.documentElement.dataset.theme = resolved;
+        document.documentElement.style.colorScheme = resolved;
+      })();
+    </script><title>Packages | ZPMLabber</title><meta name="description" content="Reusable packages, SDK wrappers, plugins, adapters, and developer tools."><link rel="canonical" href="https://zpm-labber.github.io/packages/"><meta property="og:title" content="Packages | ZPMLabber"><meta property="og:description" content="Reusable packages, SDK wrappers, plugins, adapters, and developer tools."><meta property="og:type" content="website"><meta property="og:url" content="https://zpm-labber.github.io/packages/"><meta property="og:image" content="https://zpm-labber.github.io/og-default.svg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Packages | ZPMLabber"><meta name="twitter:description" content="Reusable packages, SDK wrappers, plugins, adapters, and developer tools."><meta name="twitter:image" content="https://zpm-labber.github.io/og-default.svg"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/_astro/BaseLayout.JifKOp_t.css"></head> <body id="site-top"> <header class="sticky top-0 z-50 border-b border-cyan-300/10 bg-void/82 backdrop-blur-xl"> <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8" aria-label="Primary"> <a href="/" class="flex items-center gap-3 font-semibold"> <img class="h-10 w-10 rounded-md border border-cyan-300/35 bg-cyan-300/10 object-cover shadow-[0_0_24px_rgba(0,229,255,0.12)]" src="/zpmlabber.png" alt="ZPMLabber logo" loading="eager"> <span> <span class="block text-white">ZPMLabber</span> <span class="hidden font-mono text-[0.68rem] sm:block"> <span class="workstation-label">workstation:</span> <span class="status-online">online</span> </span> </span> </a> <div class="hidden items-center gap-1 rounded-lg border border-white/10 bg-white/[0.035] p-1 font-mono md:flex"> <a class="rounded-md px-3 py-2 text-xs text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100" href="/">/root</a><a class="rounded-md px-3 py-2 text-xs text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100" href="/about">/about</a><a class="rounded-md px-3 py-2 text-xs text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100" href="/blog">/blog</a><a class="rounded-md px-3 py-2 text-xs text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100" href="/projects">/projects</a><a class="rounded-md px-3 py-2 text-xs text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100" href="/packages">/packages</a><a class="rounded-md px-3 py-2 text-xs text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100" href="/ecosystems">/ecosystems</a> </div> <div class="flex items-center gap-2"> <div class="theme-switcher" aria-label="Theme preference"> <button type="button" data-theme-choice="system" aria-pressed="true">system</button> <button type="button" data-theme-choice="dark" aria-pressed="false">dark</button> <button type="button" data-theme-choice="light" aria-pressed="false">light</button> </div> <script>
+  (() => {
+    const storageKey = 'zpmlabber-theme';
+    const root = document.documentElement;
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    const buttons = Array.from(document.querySelectorAll('[data-theme-choice]'));
+
+    const storedTheme = () => localStorage.getItem(storageKey) || 'system';
+    const resolvedTheme = (theme) => theme === 'system' ? (media.matches ? 'dark' : 'light') : theme;
+
+    const applyTheme = (theme) => {
+      const resolved = resolvedTheme(theme);
+      root.dataset.themePreference = theme;
+      root.dataset.theme = resolved;
+      root.style.colorScheme = resolved;
+      buttons.forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.dataset.themeChoice === theme));
+      });
+    };
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const theme = button.dataset.themeChoice || 'system';
+        if (theme === 'system') {
+          localStorage.removeItem(storageKey);
+        } else {
+          localStorage.setItem(storageKey, theme);
+        }
+        applyTheme(theme);
+      });
+    });
+
+    media.addEventListener('change', () => {
+      if (storedTheme() === 'system') applyTheme('system');
+    });
+
+    applyTheme(storedTheme());
+  })();
+</script> <a class="search-trigger" href="/search" data-search-open aria-label="Open search"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"> <circle cx="11" cy="11" r="7"></circle> <path d="m20 20-3.5-3.5"></path> </svg> </a> <details class="relative md:hidden [&_summary::-webkit-details-marker]:hidden"> <summary class="block list-none cursor-pointer rounded-md border border-cyan-300/20 px-3 py-2 font-mono text-sm text-cyan-100 marker:content-none">menu</summary> <div class="absolute right-0 top-full z-50 mt-3 w-52"> <div class="terminal-pane rounded-lg p-2 shadow-[0_18px_48px_rgba(15,23,42,0.28)]"> <a class="block rounded-md px-3 py-2 font-mono text-sm text-slate-200 hover:bg-cyan-300/10" href="/">cd /root</a><a class="block rounded-md px-3 py-2 font-mono text-sm text-slate-200 hover:bg-cyan-300/10" href="/about">cd /about</a><a class="block rounded-md px-3 py-2 font-mono text-sm text-slate-200 hover:bg-cyan-300/10" href="/blog">cd /blog</a><a class="block rounded-md px-3 py-2 font-mono text-sm text-slate-200 hover:bg-cyan-300/10" href="/projects">cd /projects</a><a class="block rounded-md px-3 py-2 font-mono text-sm text-slate-200 hover:bg-cyan-300/10" href="/packages">cd /packages</a><a class="block rounded-md px-3 py-2 font-mono text-sm text-slate-200 hover:bg-cyan-300/10" href="/ecosystems">cd /ecosystems</a> </div> </div> </details> </div> </nav> </header> <main data-pagefind-body>  <section class="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8"> <div class="mb-8 max-w-3xl"> <p class="prompt mb-3 text-sm">ls packages/</p> <h2 class="text-3xl font-semibold text-white md:text-4xl">Package explorer</h2> <p class="mt-3 text-base leading-7 text-slate-300">Package cards are grouped by language and framework so the ecosystem stays easy to scan.</p> </div> <div class="space-y-12"> <section> <h2 class="prompt mb-5 text-lg">cd ./javascript</h2> <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3"> <a href="/packages/unlayer-alpinejs" class="terminal-pane group block rounded-lg transition duration-200 hover:-translate-y-1 hover:border-cyan-300/45 hover:shadow-[0_24px_70px_rgba(0,229,255,0.11)]"> <div class="terminal-topbar"> <span class="terminal-dots" aria-hidden="true"><span></span><span></span><span></span></span> <span class="truncate">panel://module</span> <span class="text-emerald-200/70">online</span> </div> <div class="relative p-5">  <p class="mb-3 font-mono text-xs text-cyan-200/80">pkg://alpine.js/unlayer-alpinejs</p> <div class="flex items-start justify-between gap-4"> <h3 class="text-lg font-semibold text-white group-hover:text-cyan-100">Unlayer Alpine.js</h3> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-cyan-300/30 bg-cyan-300/10 text-cyan-100 shadow-cyan-950/30"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> stable </span> </div> <p class="mt-3 leading-7 text-slate-300">Alpine.js bindings for lightweight Unlayer editor embeds.</p> <div class="mt-4 flex flex-wrap gap-2"> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> JavaScript </span> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> Alpine.js </span><span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> Unlayer </span> </div> <code class="mt-5 block overflow-x-auto rounded-md border border-emerald-300/15 bg-slate-950/90 p-3 font-mono text-sm text-emerald-100"><span class="text-cyan-200">$</span> npm install @community-sdks/unlayer-alpinejs</code>  </div> </a> </div> </section><section> <h2 class="prompt mb-5 text-lg">cd ./php</h2> <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3"> <a href="/packages/api-docs-builder-filament" class="terminal-pane group block rounded-lg transition duration-200 hover:-translate-y-1 hover:border-cyan-300/45 hover:shadow-[0_24px_70px_rgba(0,229,255,0.11)]"> <div class="terminal-topbar"> <span class="terminal-dots" aria-hidden="true"><span></span><span></span><span></span></span> <span class="truncate">panel://module</span> <span class="text-emerald-200/70">online</span> </div> <div class="relative p-5">  <p class="mb-3 font-mono text-xs text-cyan-200/80">pkg://filament/api-docs-builder-filament</p> <div class="flex items-start justify-between gap-4"> <h3 class="text-lg font-semibold text-white group-hover:text-cyan-100">ApiDocsKit Filament</h3> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-cyan-300/30 bg-cyan-300/10 text-cyan-100 shadow-cyan-950/30"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> stable </span> </div> <p class="mt-3 leading-7 text-slate-300">Filament integration for generating and publishing API package documentation.</p> <div class="mt-4 flex flex-wrap gap-2"> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> PHP </span> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> Laravel </span><span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> Filament </span> </div> <code class="mt-5 block overflow-x-auto rounded-md border border-emerald-300/15 bg-slate-950/90 p-3 font-mono text-sm text-emerald-100"><span class="text-cyan-200">$</span> https://packagist.org/packages/zpmlabs/filament-api-docs-builder</code>  </div> </a><a href="/packages/domain-providers" class="terminal-pane group block rounded-lg transition duration-200 hover:-translate-y-1 hover:border-cyan-300/45 hover:shadow-[0_24px_70px_rgba(0,229,255,0.11)]"> <div class="terminal-topbar"> <span class="terminal-dots" aria-hidden="true"><span></span><span></span><span></span></span> <span class="truncate">panel://module</span> <span class="text-emerald-200/70">online</span> </div> <div class="relative p-5">  <p class="mb-3 font-mono text-xs text-cyan-200/80">pkg://integrations/domain-providers</p> <div class="flex items-start justify-between gap-4"> <h3 class="text-lg font-semibold text-white group-hover:text-cyan-100">Domain Providers</h3> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-cyan-300/30 bg-cyan-300/10 text-cyan-100 shadow-cyan-950/30"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> concept </span> </div> <p class="mt-3 leading-7 text-slate-300">Adapters for domain registration, DNS, and provider-style integrations.</p> <div class="mt-4 flex flex-wrap gap-2"> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> PHP </span> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> Laravel </span> </div> <code class="mt-5 block overflow-x-auto rounded-md border border-emerald-300/15 bg-slate-950/90 p-3 font-mono text-sm text-emerald-100"><span class="text-cyan-200">$</span> composer require zpm-packages/domain-providers</code>  </div> </a><a href="/packages/filament-popup" class="terminal-pane group block rounded-lg transition duration-200 hover:-translate-y-1 hover:border-cyan-300/45 hover:shadow-[0_24px_70px_rgba(0,229,255,0.11)]"> <div class="terminal-topbar"> <span class="terminal-dots" aria-hidden="true"><span></span><span></span><span></span></span> <span class="truncate">panel://module</span> <span class="text-emerald-200/70">online</span> </div> <div class="relative p-5">  <p class="mb-3 font-mono text-xs text-cyan-200/80">pkg://filament/filament-popup</p> <div class="flex items-start justify-between gap-4"> <h3 class="text-lg font-semibold text-white group-hover:text-cyan-100">Filament Popup</h3> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-cyan-300/30 bg-cyan-300/10 text-cyan-100 shadow-cyan-950/30"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> stable </span> </div> <p class="mt-3 leading-7 text-slate-300">Reusable popup and modal helpers for Filament applications.</p> <div class="mt-4 flex flex-wrap gap-2"> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> PHP </span> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> Laravel </span><span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> Filament </span> </div> <code class="mt-5 block overflow-x-auto rounded-md border border-emerald-300/15 bg-slate-950/90 p-3 font-mono text-sm text-emerald-100"><span class="text-cyan-200">$</span> composer require zpm-packages/filament-popup</code>  </div> </a><a href="/packages/filament-undraw-illustrations-select" class="terminal-pane group block rounded-lg transition duration-200 hover:-translate-y-1 hover:border-cyan-300/45 hover:shadow-[0_24px_70px_rgba(0,229,255,0.11)]"> <div class="terminal-topbar"> <span class="terminal-dots" aria-hidden="true"><span></span><span></span><span></span></span> <span class="truncate">panel://module</span> <span class="text-emerald-200/70">online</span> </div> <div class="relative p-5">  <p class="mb-3 font-mono text-xs text-cyan-200/80">pkg://filament/filament-undraw-illustrations-select</p> <div class="flex items-start justify-between gap-4"> <h3 class="text-lg font-semibold text-white group-hover:text-cyan-100">Filament UnDraw Illustrations Select</h3> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-cyan-300/30 bg-cyan-300/10 text-cyan-100 shadow-cyan-950/30"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> stable </span> </div> <p class="mt-3 leading-7 text-slate-300">Filament select field for searching, previewing, and selecting unDraw illustrations.</p> <div class="mt-4 flex flex-wrap gap-2"> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> PHP </span> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> Laravel </span><span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> Filament </span> </div> <code class="mt-5 block overflow-x-auto rounded-md border border-emerald-300/15 bg-slate-950/90 p-3 font-mono text-sm text-emerald-100"><span class="text-cyan-200">$</span> composer require zpmlabs/filament-undraw</code>  </div> </a><a href="/packages/filament-unlayer" class="terminal-pane group block rounded-lg transition duration-200 hover:-translate-y-1 hover:border-cyan-300/45 hover:shadow-[0_24px_70px_rgba(0,229,255,0.11)]"> <div class="terminal-topbar"> <span class="terminal-dots" aria-hidden="true"><span></span><span></span><span></span></span> <span class="truncate">panel://module</span> <span class="text-emerald-200/70">online</span> </div> <div class="relative p-5">  <p class="mb-3 font-mono text-xs text-cyan-200/80">pkg://filament/filament-unlayer</p> <div class="flex items-start justify-between gap-4"> <h3 class="text-lg font-semibold text-white group-hover:text-cyan-100">Filament Unlayer</h3> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-cyan-300/30 bg-cyan-300/10 text-cyan-100 shadow-cyan-950/30"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> stable </span> </div> <p class="mt-3 leading-7 text-slate-300">Filament field and resource helpers for Unlayer-powered email editing.</p> <div class="mt-4 flex flex-wrap gap-2"> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> PHP </span> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> Laravel </span><span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> Filament </span> </div> <code class="mt-5 block overflow-x-auto rounded-md border border-emerald-300/15 bg-slate-950/90 p-3 font-mono text-sm text-emerald-100"><span class="text-cyan-200">$</span> composer require community-sdks/filament-unlayer</code>  </div> </a><a href="/packages/unlayer-livewire" class="terminal-pane group block rounded-lg transition duration-200 hover:-translate-y-1 hover:border-cyan-300/45 hover:shadow-[0_24px_70px_rgba(0,229,255,0.11)]"> <div class="terminal-topbar"> <span class="terminal-dots" aria-hidden="true"><span></span><span></span><span></span></span> <span class="truncate">panel://module</span> <span class="text-emerald-200/70">online</span> </div> <div class="relative p-5">  <p class="mb-3 font-mono text-xs text-cyan-200/80">pkg://unlayer/unlayer-livewire</p> <div class="flex items-start justify-between gap-4"> <h3 class="text-lg font-semibold text-white group-hover:text-cyan-100">Unlayer Livewire</h3> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-cyan-300/30 bg-cyan-300/10 text-cyan-100 shadow-cyan-950/30"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> stable </span> </div> <p class="mt-3 leading-7 text-slate-300">Livewire wrapper for the Unlayer email editor.</p> <div class="mt-4 flex flex-wrap gap-2"> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> PHP </span> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> Laravel </span><span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> Livewire </span> </div> <code class="mt-5 block overflow-x-auto rounded-md border border-emerald-300/15 bg-slate-950/90 p-3 font-mono text-sm text-emerald-100"><span class="text-cyan-200">$</span> composer require community-sdks/unlayer-livewire</code>  </div> </a> </div> </section><section> <h2 class="prompt mb-5 text-lg">cd ./typescript</h2> <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3"> <a href="/packages/unlayer-ts" class="terminal-pane group block rounded-lg transition duration-200 hover:-translate-y-1 hover:border-cyan-300/45 hover:shadow-[0_24px_70px_rgba(0,229,255,0.11)]"> <div class="terminal-topbar"> <span class="terminal-dots" aria-hidden="true"><span></span><span></span><span></span></span> <span class="truncate">panel://module</span> <span class="text-emerald-200/70">online</span> </div> <div class="relative p-5">  <p class="mb-3 font-mono text-xs text-cyan-200/80">pkg://javascript / typescript/unlayer-ts</p> <div class="flex items-start justify-between gap-4"> <h3 class="text-lg font-semibold text-white group-hover:text-cyan-100">Unlayer TS</h3> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-cyan-300/30 bg-cyan-300/10 text-cyan-100 shadow-cyan-950/30"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> stable </span> </div> <p class="mt-3 leading-7 text-slate-300">TypeScript helpers and types for working with the Unlayer editor.</p> <div class="mt-4 flex flex-wrap gap-2"> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> TypeScript </span> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> Unlayer </span> </div> <code class="mt-5 block overflow-x-auto rounded-md border border-emerald-300/15 bg-slate-950/90 p-3 font-mono text-sm text-emerald-100"><span class="text-cyan-200">$</span> npm install @community-sdks/unlayer-ts</code>  </div> </a> </div> </section> </div> </section>  </main> <footer class="border-t border-cyan-300/10 bg-void/65"> <div class="mx-auto grid max-w-6xl gap-8 px-4 py-10 text-sm text-slate-400 sm:px-6 md:grid-cols-[1fr_auto] lg:px-8"> <div> <p class="prompt text-sm">cat /var/status/zpmlabber</p> <p class="mt-2 font-semibold text-white">
+ZPMLabber <span class="workstation-label">workstation</span> <span class="status-online">online</span>.
+</p> <p class="mt-2 max-w-xl">Open-source developer tools, SDKs, packages, experiments, and engineering notes.</p> </div> <div class="flex flex-wrap gap-4 font-mono"> <a class="hover:text-cyan-200" href="https://github.com/zpmlabber">GitHub</a> <a class="hover:text-cyan-200" href="/search">Search</a> <a class="hover:text-cyan-200" href="/blog">Blog</a> </div> <p class="font-mono md:col-span-2">© 2026 ZPMLabber</p> </div> </footer> <a class="back-to-top" href="#site-top" aria-label="Back to top"> <span aria-hidden="true">^</span> <span>top</span> </a> <section class="search-modal" data-search-modal hidden aria-hidden="true"> <button class="search-modal__backdrop" type="button" data-search-close aria-label="Close search"></button> <div class="search-modal__frame" data-search-frame> <div class="search-modal__dialog" data-search-dialog role="dialog" aria-modal="true" aria-labelledby="site-search-title"> <section class="search-shell terminal-pane rounded-[1.35rem]" data-search-root="modal" data-search-limit="10"> <div class="terminal-topbar"> <span class="terminal-dots" aria-hidden="true"><span></span><span></span><span></span></span> <span>~/search</span> <button class="search-shell__close" type="button" data-search-close aria-label="Close search">
+:q quit
+</button> </div> <div class="search-shell__body"> <div class="flex flex-wrap items-center justify-between gap-3"> <div> <h2 id="site-search-title" class="search-shell__title">Command Palette Search</h2> <p class="search-shell__subtitle">Search blog posts, packages, projects, and notes with the generated Pagefind index.</p> </div> <div class="search-shell__shortcut-row" aria-hidden="true"> <span class="search-shell__kbd">Ctrl K</span> <span class="search-shell__kbd">Cmd K</span> <span class="search-shell__kbd">/</span> </div> </div> <label class="search-shell__prompt" for="site-search-modal-input"> <span class="search-shell__prompt-symbol">$</span> <span class="search-shell__prompt-label">search</span> <input id="site-search-modal-input" class="search-shell__input" type="search" data-search-input placeholder="search &quot;unlayer&quot;" autocomplete="off" spellcheck="false"> </label> <div class="search-shell__meta-row font-mono text-xs"> <span data-search-meta>panel://lookup</span> <span data-search-count>00</span> </div> <p class="search-shell__status" data-search-status data-state="idle" role="status" aria-live="polite">
+Type a query to inspect the static search index.
+</p> <ol class="search-results" data-search-results></ol> <p class="search-shell__note">
+Search works after production build. Run <span class="font-mono">npm run build</span> and <span class="font-mono">npm run preview</span> to test Pagefind locally.
+</p> </div> <noscript> <p class="search-shell__noscript">Interactive search requires JavaScript. You can still browse the site through the main navigation.</p> </noscript> </section> </div> </div> </section> <script>
+  (() => {
+    if (window.__zpmlabberSearchInit) return;
+    window.__zpmlabberSearchInit = true;
+
+    const modal = document.querySelector('[data-search-modal]');
+    const modalRoot = modal?.querySelector('[data-search-root="modal"]');
+    const modalDialog = modal?.querySelector('[data-search-dialog]');
+    const modalFrame = modal?.querySelector('[data-search-frame]');
+    const openTriggers = Array.from(document.querySelectorAll('[data-search-open]'));
+    const searchRoots = Array.from(document.querySelectorAll('[data-search-root]'));
+    let pagefindPromise;
+    let lastFocusedElement = null;
+
+    const isTypingTarget = (element) => {
+      if (!(element instanceof HTMLElement)) return false;
+      const tagName = element.tagName;
+      return element.isContentEditable || tagName === 'INPUT' || tagName === 'TEXTAREA' || tagName === 'SELECT';
+    };
+
+    const getPagefind = async () => {
+      if (!pagefindPromise) {
+        pagefindPromise = import('/pagefind/pagefind.js')
+          .then(async (pagefind) => {
+            if (typeof pagefind.options === 'function') {
+              await pagefind.options({});
+            }
+            return pagefind;
+          })
+          .catch(() => null);
+      }
+
+      return pagefindPromise;
+    };
+
+    const resultPath = (url) => {
+      if (!url) return '/';
+      try {
+        return new URL(url, window.location.origin).pathname || '/';
+      } catch {
+        return url;
+      }
+    };
+
+    const createResultItem = (data, index) => {
+      const item = document.createElement('li');
+      const link = document.createElement('a');
+      const path = resultPath(data.url);
+      const title = data.meta?.title || path;
+      const excerpt = data.excerpt || data.meta?.description || 'Indexed document available in the static search catalog.';
+
+      item.className = 'search-results__item';
+      link.className = 'search-result';
+      link.href = data.url || '/search';
+
+      const indexLabel = document.createElement('span');
+      indexLabel.className = 'search-result__index';
+      indexLabel.textContent = String(index + 1).padStart(2, '0');
+
+      const pathLabel = document.createElement('p');
+      pathLabel.className = 'search-result__path';
+      pathLabel.textContent = path;
+
+      const titleLabel = document.createElement('h3');
+      titleLabel.className = 'search-result__title';
+      titleLabel.textContent = title;
+
+      const excerptLabel = document.createElement('p');
+      excerptLabel.className = 'search-result__excerpt';
+      excerptLabel.innerHTML = excerpt;
+
+      link.append(indexLabel, pathLabel, titleLabel, excerptLabel);
+      item.append(link);
+      return item;
+    };
+
+    const initializeSearchRoot = (root) => {
+      const input = root.querySelector('[data-search-input]');
+      const status = root.querySelector('[data-search-status]');
+      const results = root.querySelector('[data-search-results]');
+      const count = root.querySelector('[data-search-count]');
+      const meta = root.querySelector('[data-search-meta]');
+      const limit = Number(root.dataset.searchLimit || '10');
+      let token = 0;
+      let debounceHandle;
+
+      if (!(input instanceof HTMLInputElement) || !(status instanceof HTMLElement) || !(results instanceof HTMLElement) || !(count instanceof HTMLElement) || !(meta instanceof HTMLElement)) {
+        return;
+      }
+
+      const setStatus = (message, state = 'idle') => {
+        status.dataset.state = state;
+        status.textContent = message;
+      };
+
+      const resetState = () => {
+        results.innerHTML = '';
+        count.textContent = '00';
+        meta.textContent = 'panel://lookup';
+        setStatus('Type a query to inspect the static search index.', 'idle');
+      };
+
+      const showIndexMissing = () => {
+        results.innerHTML = '';
+        count.textContent = '--';
+        meta.textContent = 'panel://offline';
+        setStatus('Search index is available after production build. Run npm run build && npm run preview to test search locally.', 'error');
+      };
+
+      const renderResults = (query, items, total) => {
+        results.innerHTML = '';
+
+        if (!items.length) {
+          count.textContent = '00';
+          meta.textContent = 'panel://empty';
+          setStatus(`No indexed pages matched "${query}".`, 'empty');
+          return;
+        }
+
+        const fragment = document.createDocumentFragment();
+        items.forEach((item, index) => fragment.append(createResultItem(item, index)));
+        results.append(fragment);
+        count.textContent = String(items.length).padStart(2, '0');
+        meta.textContent = 'panel://results';
+        setStatus(`Found ${total} indexed ${total === 1 ? 'page' : 'pages'} for "${query}".`, 'success');
+      };
+
+      const runSearch = async (query) => {
+        const searchTerm = query.trim();
+        const currentToken = ++token;
+
+        if (!searchTerm) {
+          resetState();
+          return;
+        }
+
+        results.innerHTML = '';
+        count.textContent = '..';
+        meta.textContent = 'panel://query';
+        setStatus(`Searching Pagefind for "${searchTerm}"...`, 'loading');
+
+        const pagefind = await getPagefind();
+
+        if (!pagefind) {
+          if (currentToken !== token) return;
+          showIndexMissing();
+          return;
+        }
+
+        try {
+          const search = await pagefind.search(searchTerm);
+          const matches = Array.isArray(search?.results) ? search.results.slice(0, limit) : [];
+          const hydrated = await Promise.all(matches.map((result) => result.data()));
+
+          if (currentToken !== token) return;
+
+          renderResults(searchTerm, hydrated, search?.unfilteredResultCount ?? hydrated.length);
+        } catch {
+          if (currentToken !== token) return;
+          showIndexMissing();
+        }
+      };
+
+      input.addEventListener('input', () => {
+        window.clearTimeout(debounceHandle);
+        debounceHandle = window.setTimeout(() => runSearch(input.value), 180);
+      });
+
+      resetState();
+    };
+
+    const openModal = (trigger) => {
+      if (!(modal instanceof HTMLElement) || !(modalRoot instanceof HTMLElement)) return;
+      lastFocusedElement = trigger instanceof HTMLElement ? trigger : document.activeElement;
+      modal.hidden = false;
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('search-modal-open');
+
+      const input = modalRoot.querySelector('[data-search-input]');
+      if (input instanceof HTMLInputElement) {
+        requestAnimationFrame(() => {
+          input.focus();
+          input.select();
+        });
+      }
+    };
+
+    const closeModal = () => {
+      if (!(modal instanceof HTMLElement) || modal.hidden) return;
+      modal.hidden = true;
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('search-modal-open');
+
+      if (lastFocusedElement instanceof HTMLElement) {
+        lastFocusedElement.focus();
+      }
+    };
+
+    searchRoots.forEach(initializeSearchRoot);
+
+    openTriggers.forEach((trigger) => {
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        openModal(trigger);
+      });
+    });
+
+    modal?.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) return;
+
+      if (target.hasAttribute('data-search-close')) {
+        closeModal();
+        return;
+      }
+
+      if (modalFrame instanceof HTMLElement && modalDialog instanceof HTMLElement && modalFrame.contains(target) && !modalDialog.contains(target)) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      const activeElement = document.activeElement;
+
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        openModal(activeElement);
+        return;
+      }
+
+      if (event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey && !isTypingTarget(activeElement)) {
+        event.preventDefault();
+        openModal(activeElement);
+        return;
+      }
+
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    });
+  })();
+</script> </body></html>

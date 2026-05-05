@@ -1,0 +1,519 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><script>
+      (() => {
+        const theme = localStorage.getItem('zpmlabber-theme') || 'system';
+        const resolved = theme === 'system'
+          ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+          : theme;
+        document.documentElement.dataset.themePreference = theme;
+        document.documentElement.dataset.theme = resolved;
+        document.documentElement.style.colorScheme = resolved;
+      })();
+    </script><title>Domain Providers | ZPMLabber Packages</title><meta name="description" content="Adapters for domain registration, DNS, and provider-style integrations."><link rel="canonical" href="https://zpm-labber.github.io/packages/domain-providers/"><meta property="og:title" content="Domain Providers | ZPMLabber Packages"><meta property="og:description" content="Adapters for domain registration, DNS, and provider-style integrations."><meta property="og:type" content="website"><meta property="og:url" content="https://zpm-labber.github.io/packages/domain-providers/"><meta property="og:image" content="https://zpm-labber.github.io/og-default.svg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Domain Providers | ZPMLabber Packages"><meta name="twitter:description" content="Adapters for domain registration, DNS, and provider-style integrations."><meta name="twitter:image" content="https://zpm-labber.github.io/og-default.svg"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/_astro/BaseLayout.JifKOp_t.css"></head> <body id="site-top"> <header class="sticky top-0 z-50 border-b border-cyan-300/10 bg-void/82 backdrop-blur-xl"> <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8" aria-label="Primary"> <a href="/" class="flex items-center gap-3 font-semibold"> <img class="h-10 w-10 rounded-md border border-cyan-300/35 bg-cyan-300/10 object-cover shadow-[0_0_24px_rgba(0,229,255,0.12)]" src="/zpmlabber.png" alt="ZPMLabber logo" loading="eager"> <span> <span class="block text-white">ZPMLabber</span> <span class="hidden font-mono text-[0.68rem] sm:block"> <span class="workstation-label">workstation:</span> <span class="status-online">online</span> </span> </span> </a> <div class="hidden items-center gap-1 rounded-lg border border-white/10 bg-white/[0.035] p-1 font-mono md:flex"> <a class="rounded-md px-3 py-2 text-xs text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100" href="/">/root</a><a class="rounded-md px-3 py-2 text-xs text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100" href="/about">/about</a><a class="rounded-md px-3 py-2 text-xs text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100" href="/blog">/blog</a><a class="rounded-md px-3 py-2 text-xs text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100" href="/projects">/projects</a><a class="rounded-md px-3 py-2 text-xs text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100" href="/packages">/packages</a><a class="rounded-md px-3 py-2 text-xs text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100" href="/ecosystems">/ecosystems</a> </div> <div class="flex items-center gap-2"> <div class="theme-switcher" aria-label="Theme preference"> <button type="button" data-theme-choice="system" aria-pressed="true">system</button> <button type="button" data-theme-choice="dark" aria-pressed="false">dark</button> <button type="button" data-theme-choice="light" aria-pressed="false">light</button> </div> <script>
+  (() => {
+    const storageKey = 'zpmlabber-theme';
+    const root = document.documentElement;
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    const buttons = Array.from(document.querySelectorAll('[data-theme-choice]'));
+
+    const storedTheme = () => localStorage.getItem(storageKey) || 'system';
+    const resolvedTheme = (theme) => theme === 'system' ? (media.matches ? 'dark' : 'light') : theme;
+
+    const applyTheme = (theme) => {
+      const resolved = resolvedTheme(theme);
+      root.dataset.themePreference = theme;
+      root.dataset.theme = resolved;
+      root.style.colorScheme = resolved;
+      buttons.forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.dataset.themeChoice === theme));
+      });
+    };
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const theme = button.dataset.themeChoice || 'system';
+        if (theme === 'system') {
+          localStorage.removeItem(storageKey);
+        } else {
+          localStorage.setItem(storageKey, theme);
+        }
+        applyTheme(theme);
+      });
+    });
+
+    media.addEventListener('change', () => {
+      if (storedTheme() === 'system') applyTheme('system');
+    });
+
+    applyTheme(storedTheme());
+  })();
+</script> <a class="search-trigger" href="/search" data-search-open aria-label="Open search"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"> <circle cx="11" cy="11" r="7"></circle> <path d="m20 20-3.5-3.5"></path> </svg> </a> <details class="relative md:hidden [&_summary::-webkit-details-marker]:hidden"> <summary class="block list-none cursor-pointer rounded-md border border-cyan-300/20 px-3 py-2 font-mono text-sm text-cyan-100 marker:content-none">menu</summary> <div class="absolute right-0 top-full z-50 mt-3 w-52"> <div class="terminal-pane rounded-lg p-2 shadow-[0_18px_48px_rgba(15,23,42,0.28)]"> <a class="block rounded-md px-3 py-2 font-mono text-sm text-slate-200 hover:bg-cyan-300/10" href="/">cd /root</a><a class="block rounded-md px-3 py-2 font-mono text-sm text-slate-200 hover:bg-cyan-300/10" href="/about">cd /about</a><a class="block rounded-md px-3 py-2 font-mono text-sm text-slate-200 hover:bg-cyan-300/10" href="/blog">cd /blog</a><a class="block rounded-md px-3 py-2 font-mono text-sm text-slate-200 hover:bg-cyan-300/10" href="/projects">cd /projects</a><a class="block rounded-md px-3 py-2 font-mono text-sm text-slate-200 hover:bg-cyan-300/10" href="/packages">cd /packages</a><a class="block rounded-md px-3 py-2 font-mono text-sm text-slate-200 hover:bg-cyan-300/10" href="/ecosystems">cd /ecosystems</a> </div> </div> </details> </div> </nav> </header> <main data-pagefind-body>  <article class="mx-auto max-w-4xl px-4 py-14 sm:px-6 lg:px-8"> <p class="prompt mb-5 text-sm">inspect package domain-providers</p> <div class="mb-5 flex flex-wrap gap-2"> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-cyan-300/30 bg-cyan-300/10 text-cyan-100 shadow-cyan-950/30"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> concept </span> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-violet-300/30 bg-violet-400/10 text-violet-100"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> ZPM Packages </span> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> PHP </span> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> Laravel </span> </div> <h1 class="text-4xl font-semibold text-white md:text-6xl">Domain Providers</h1> <p class="mt-5 text-lg leading-8 text-slate-300">Adapters for domain registration, DNS, and provider-style integrations.</p> <code class="mt-7 block overflow-x-auto rounded-lg border border-emerald-300/20 bg-slate-950/90 p-4 font-mono text-emerald-100"><span class="text-cyan-200">$</span> composer require zpm-packages/domain-providers</code> <div class="mt-7 flex flex-wrap gap-3"> <a class="command-link" href="https://github.com/zpm-packages/domain-providers">git remote</a> <a class="command-link" href="https://packagist.org/packages/zpm-packages/domain-providers">open registry</a> </div> <div class="terminal-pane mt-10 rounded-lg p-6"> <div class="prose prose-lg prose-invert prose-zpm max-w-none"> <h2 id="one-interface-for-domain-providers">One Interface for Domain Providers</h2>
+<p>Domain integrations get messy fast.</p>
+<p>Checking availability is one flow.
+Registering a domain is another.
+Renewals, transfers, nameservers, DNS records, pricing, provider credentials, reseller accounts, direct accounts, supported TLDs, and provider-specific edge cases all add their own shape.</p>
+<p><strong>Domain Providers</strong> is a package ecosystem for handling domain registration, DNS, and provider-style integrations behind a shared PHP abstraction.</p>
+<p>The goal is not to pretend every registrar works the same.</p>
+<p>The goal is to give an application one clean way to talk to multiple providers while still respecting provider capabilities and differences.</p>
+<h2 id="why-this-package-exists">Why This Package Exists</h2>
+<p>A website builder, SaaS platform, hosting panel, or client portal will eventually need domain workflows.</p>
+<p>A user wants to search for a domain.
+A business wants to register it.
+A builder wants to point DNS records to the published site.
+A tenant might need its own provider credentials.
+A platform may prefer one provider for <code>.com</code> and another for a different TLD.</p>
+<p>Hardcoding that logic directly into the application makes the product harder to change later.</p>
+<p>Domain Providers separates that concern into reusable packages.</p>
+<p>The pure PHP package owns the provider abstraction and adapters. The Laravel package owns database persistence, encrypted provider config, runtime bootstrapping, queued TLD sync, and framework integration.</p>
+<h2 id="two-layers">Two Layers</h2>
+<p>The ecosystem is split into two main packages.</p>
+<p>The PHP package provides the provider contracts, DTOs, operation interfaces, capability-aware abstraction, and provider adapters.</p>
+<p>The Laravel package provides the application bridge: migrations, encrypted config storage, provider records, discovered TLD records, singleton handler registration, queues, scheduler integration, and cache invalidation.</p>
+<p>That split is important.</p>
+<p>The domain logic should not require Laravel.
+The Laravel integration should not duplicate the provider logic.</p>
+<p>Each layer has a job.</p>
+<h2 id="pure-php-provider-layer">Pure PHP Provider Layer</h2>
+<p>The PHP package is the provider-agnostic core.</p>
+<p>It includes contract-aligned DTOs and operation interfaces for common domain workflows:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>check availability</span></span>
+<span class="line"><span>register domain</span></span>
+<span class="line"><span>renew domain</span></span>
+<span class="line"><span>transfer domain</span></span>
+<span class="line"><span>get domain info</span></span>
+<span class="line"><span>list domains</span></span>
+<span class="line"><span>get nameservers</span></span>
+<span class="line"><span>set nameservers</span></span>
+<span class="line"><span>list DNS records</span></span>
+<span class="line"><span>create DNS records</span></span>
+<span class="line"><span>update DNS records</span></span>
+<span class="line"><span>delete DNS records</span></span>
+<span class="line"><span>get pricing</span></span>
+<span class="line"><span>check transfer availability</span></span>
+<span class="line"><span>provider metadata</span></span>
+<span class="line"><span>provider capabilities</span></span></code></pre>
+<p>Provider operations are capability-aware.</p>
+<p>That means an adapter can support one feature and explicitly reject another through an unsupported capability exception instead of failing silently or pretending support exists.</p>
+<h2 id="provider-adapters">Provider Adapters</h2>
+<p>The PHP package includes provider adapters for Spaceship and GoDaddy.</p>
+<p>Spaceship support includes availability checks, registration, renewal, transfer, domain info, nameserver read/update, and DNS record list/create/update/delete.</p>
+<p>GoDaddy support includes both reseller account endpoints and direct account endpoints, depending on the configured account mode.</p>
+<p>That matters because GoDaddy direct accounts and reseller/customer flows are not the same thing.</p>
+<p>The package keeps that distinction in configuration instead of spreading it across application code.</p>
+<h2 id="provider-agnostic-usage">Provider-Agnostic Usage</h2>
+<p>The application can work against the shared provider interface instead of being locked to one registrar.</p>
+<p>The same high-level flow can check availability, register a domain, read nameservers, or create DNS records through whichever provider is selected.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="php"><code><span class="line"><span style="color:#E1E4E8">$availability </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> $provider</span><span style="color:#F97583">-></span><span style="color:#B392F0">checkAvailability</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">new</span><span style="color:#79B8FF"> DomainName</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'example.com'</span><span style="color:#E1E4E8">));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8"> ($availability</span><span style="color:#F97583">-></span><span style="color:#E1E4E8">available) {</span></span>
+<span class="line"><span style="color:#E1E4E8">    $provider</span><span style="color:#F97583">-></span><span style="color:#B392F0">registerDomain</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#B392F0">        domain</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">new</span><span style="color:#79B8FF"> DomainName</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'example.com'</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#B392F0">        period</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">new</span><span style="color:#79B8FF"> DomainRegistrationPeriod</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#B392F0">        registrantContact</span><span style="color:#E1E4E8">: $registrant,</span></span>
+<span class="line"><span style="color:#B392F0">        nameservers</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">new</span><span style="color:#79B8FF"> NameserverSet</span><span style="color:#E1E4E8">([</span></span>
+<span class="line"><span style="color:#9ECBFF">            'ns1.example.com'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">            'ns2.example.com'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">        ]),</span></span>
+<span class="line"><span style="color:#B392F0">        privacyEnabled</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    );</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>This is the main value of the package: the product code can stay focused on the business flow instead of every registrar’s SDK details.</p>
+<h2 id="provider-routing-by-tld">Provider Routing by TLD</h2>
+<p>The PHP package also includes a <code>DomainProviderHandler</code> for registering multiple providers and routing operations.</p>
+<p>This is useful when the platform wants different routing behavior per TLD.</p>
+<p>For example, one provider can be preferred for <code>.com</code>, another provider can be used only for specific extensions, and priority rules can decide fallback order.</p>
+<p>Routing can consider:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>explicit preferred provider for a TLD</span></span>
+<span class="line"><span>only-TLD rules</span></span>
+<span class="line"><span>except-TLD rules</span></span>
+<span class="line"><span>priority-TLD matches</span></span>
+<span class="line"><span>numeric provider priority</span></span></code></pre>
+<p>That is useful for real platforms because provider support is not uniform.</p>
+<p>Some registrars are better for certain TLDs. Some providers have better pricing, better API coverage, or better regional support.</p>
+<h2 id="custom-providers">Custom Providers</h2>
+<p>The package is designed so provider adapters do not need to live only inside the package.</p>
+<p>Custom providers can be registered through the provider registry as classes, instances, or factories.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="php"><code><span class="line"><span style="color:#E1E4E8">$registry</span><span style="color:#F97583">-></span><span style="color:#B392F0">registerClass</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'my-provider'</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">MyProvider</span><span style="color:#F97583">::class</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">$provider </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> $registry</span><span style="color:#F97583">-></span><span style="color:#B392F0">get</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'my-provider'</span><span style="color:#E1E4E8">);</span></span></code></pre>
+<p>That keeps the core package extensible.</p>
+<p>If a product needs Namecheap, Cloudflare, Porkbun, or an internal provider later, the application can add a new adapter without rewriting the domain workflow.</p>
+<h2 id="laravel-bridge">Laravel Bridge</h2>
+<p>The Laravel package turns the provider abstraction into something usable inside a real Laravel application.</p>
+<p>It adds database persistence for provider instances and discovered TLDs, encrypted provider credential storage, DB-driven provider bootstrapping, queued TLD sync jobs, scheduler integration, and cache invalidation hooks.</p>
+<p>Install it with Composer:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">composer</span><span style="color:#9ECBFF"> require</span><span style="color:#9ECBFF"> community-sdks/domain-providers-laravel</span></span></code></pre>
+<p>Then publish config and migrations:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">php</span><span style="color:#9ECBFF"> artisan</span><span style="color:#9ECBFF"> vendor:publish</span><span style="color:#79B8FF"> --tag=domain-providers-config</span></span>
+<span class="line"><span style="color:#B392F0">php</span><span style="color:#9ECBFF"> artisan</span><span style="color:#9ECBFF"> vendor:publish</span><span style="color:#79B8FF"> --tag=domain-providers-migrations</span></span>
+<span class="line"><span style="color:#B392F0">php</span><span style="color:#9ECBFF"> artisan</span><span style="color:#9ECBFF"> migrate</span></span></code></pre>
+<p>The Laravel package intentionally keeps registrar/domain logic in the pure PHP package.</p>
+<p>Laravel owns persistence and runtime integration.</p>
+<h2 id="database-driven-providers">Database-Driven Providers</h2>
+<p>The Laravel package stores provider instances in a <code>domain_providers</code> table.</p>
+<p>A provider row can include:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>UUID primary key</span></span>
+<span class="line"><span>tenant_id</span></span>
+<span class="line"><span>name</span></span>
+<span class="line"><span>driver</span></span>
+<span class="line"><span>encrypted config</span></span>
+<span class="line"><span>non-secret rules</span></span>
+<span class="line"><span>priority</span></span>
+<span class="line"><span>active status</span></span>
+<span class="line"><span>TLD sync status fields</span></span>
+<span class="line"><span>notes</span></span>
+<span class="line"><span>timestamps</span></span></code></pre>
+<p>Provider credentials are stored in encrypted config, while routing and policy metadata live separately in <code>rules</code>.</p>
+<p>That distinction is useful.</p>
+<p>Secrets belong in encrypted config.
+Provider behavior rules do not need to be encrypted.
+Both should be editable and bootstrappable from the database.</p>
+<h2 id="discovered-tlds">Discovered TLDs</h2>
+<p>The Laravel package also stores discovered provider TLDs in <code>domain_provider_tlds</code>.</p>
+<p>Each row belongs to a provider and tracks the normalized extension, active status, sync timestamp, optional metadata, and placeholder pricing fields.</p>
+<p>This gives the application a local view of what a provider supports.</p>
+<p>That can power admin screens, domain search filters, provider selection rules, or future pricing workflows.</p>
+<h2 id="runtime-handler-assembly">Runtime Handler Assembly</h2>
+<p>At runtime, the Laravel package registers <code>DomainProviderHandler</code> as a singleton.</p>
+<p>The build flow is database-driven:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>load active providers from the database</span></span>
+<span class="line"><span>decrypt and decode config</span></span>
+<span class="line"><span>normalize rules</span></span>
+<span class="line"><span>resolve provider factory by driver</span></span>
+<span class="line"><span>instantiate provider and provider config</span></span>
+<span class="line"><span>register provider into the handler</span></span>
+<span class="line"><span>apply preferred TLD mappings from rules</span></span></code></pre>
+<p>This means the application does not have to manually build the handler in every service.</p>
+<p>The configured providers become available through the container.</p>
+<h2 id="tenancy-aware-setup">Tenancy-Aware Setup</h2>
+<p>The Laravel configuration includes tenancy options.</p>
+<p>That makes the package useful for platforms where provider credentials or provider rules differ per tenant.</p>
+<p>A global provider can be shared across the platform, or tenant-specific providers can be included depending on configuration.</p>
+<p>That matters for products like website builders, hosting tools, domain reseller panels, or multi-tenant SaaS systems.</p>
+<p>Some platforms own all registrar credentials centrally. Others may allow each tenant to connect their own provider account.</p>
+<p>The package leaves room for both.</p>
+<h2 id="provider-config-templates">Provider Config Templates</h2>
+<p>The Laravel package can resolve provider-specific config templates by driver.</p>
+<p>That is useful for building admin forms, especially in Filament.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="php"><code><span class="line"><span style="color:#E1E4E8">$template </span><span style="color:#F97583">=</span><span style="color:#B392F0"> app</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">\DomainProviders\Laravel\Services\ProviderConfigResolver</span><span style="color:#F97583">::class</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">    -></span><span style="color:#B392F0">resolveConfigTemplateForDriver</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'godaddy'</span><span style="color:#E1E4E8">);</span></span></code></pre>
+<p>The templates are derived from the provider config constructors in the PHP package.</p>
+<p>That means config forms can stay aligned with provider adapter updates instead of being manually duplicated in the UI layer.</p>
+<h2 id="godaddy-and-spaceship-config">GoDaddy and Spaceship Config</h2>
+<p>For Spaceship, the encrypted config stores credentials and environment:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#79B8FF">    "api_key"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"your-key"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "api_secret"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"your-secret"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "environment"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"production"</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>For GoDaddy reseller accounts, the config includes account mode and customer ID:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#79B8FF">    "api_key"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"your-key"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "api_secret"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"your-secret"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "environment"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"production"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "account_mode"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"reseller"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "customer_id"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"your-customer-id"</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>For direct GoDaddy accounts, the customer ID can be null:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#79B8FF">    "api_key"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"your-key"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "api_secret"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"your-secret"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "environment"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"production"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "account_mode"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"direct"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "customer_id"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">null</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>This keeps provider differences explicit and configurable.</p>
+<h2 id="tld-sync">TLD Sync</h2>
+<p>The Laravel package includes a dispatch command for syncing provider TLDs:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">php</span><span style="color:#9ECBFF"> artisan</span><span style="color:#9ECBFF"> domain-providers:sync-tlds-dispatch</span></span></code></pre>
+<p>It supports options for syncing one provider, applying tenant context, running inline instead of queued, and forcing sync even when the provider is not due yet.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">php</span><span style="color:#9ECBFF"> artisan</span><span style="color:#9ECBFF"> domain-providers:sync-tlds-dispatch</span><span style="color:#79B8FF"> --provider=provider-id</span><span style="color:#79B8FF"> --inline</span><span style="color:#79B8FF"> --force</span></span></code></pre>
+<p>The queued job checks whether the provider supports TLD discovery, normalizes discovered extensions, upserts local TLD rows, updates sync timestamps, and can mark missing TLD rows inactive instead of hard-deleting them.</p>
+<p>That last detail is important because provider support can change, but deleting historical rows immediately is often not the safest behavior.</p>
+<h2 id="rules-for-provider-policy">Rules for Provider Policy</h2>
+<p>The <code>rules</code> field stores non-secret provider policy metadata.</p>
+<p>For example:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#79B8FF">    "included_tlds"</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">"com"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"net"</span><span style="color:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#79B8FF">    "excluded_tlds"</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">"xyz"</span><span style="color:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#79B8FF">    "priority_tlds"</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">"io"</span><span style="color:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#79B8FF">    "preferred_tlds"</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">"co.uk"</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>This gives the application a database-driven way to control provider routing without putting secrets and routing policy in the same field.</p>
+<h2 id="where-this-fits">Where This Fits</h2>
+<p>Domain Providers is useful for products that need domain workflows as part of a larger system.</p>
+<p>Website builders.
+Hosting dashboards.
+Client portals.
+Domain reseller panels.
+Multi-tenant SaaS platforms.
+Internal tools for DNS automation.
+CMS products that publish sites to custom domains.</p>
+<p>The package is not only about buying domains.</p>
+<p>It is about creating a clean integration layer for provider-style domain operations.</p>
+<h2 id="why-this-matters">Why This Matters</h2>
+<p>Domain registration and DNS are not usually the core product.</p>
+<p>They are infrastructure around the product.</p>
+<p>But if the integration is messy, it leaks everywhere: checkout flows, site publishing, onboarding, DNS setup, tenant configuration, provider credentials, and support tooling.</p>
+<p>A shared provider layer keeps that complexity contained.</p>
+<p>That is the real reason this package matters.</p>
+<p>It gives future products a reusable foundation instead of making every project start from raw registrar APIs again.</p>
+<h2 id="package">Package</h2>
+<p>Pure PHP package:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">composer</span><span style="color:#9ECBFF"> require</span><span style="color:#9ECBFF"> community-sdks/domain-providers-php</span></span></code></pre>
+<p>Laravel package:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">composer</span><span style="color:#9ECBFF"> require</span><span style="color:#9ECBFF"> community-sdks/domain-providers-laravel</span></span></code></pre>
+<p>Repository:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>https://github.com/community-sdks/domain-providers-php</span></span>
+<span class="line"><span>https://github.com/community-sdks/domain-providers-laravel</span></span></code></pre>
+<p>Registry:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>https://packagist.org/packages/community-sdks/domain-providers-php</span></span>
+<span class="line"><span>https://packagist.org/packages/community-sdks/domain-providers-laravel</span></span></code></pre> </div> </div> </article>  </main> <footer class="border-t border-cyan-300/10 bg-void/65"> <div class="mx-auto grid max-w-6xl gap-8 px-4 py-10 text-sm text-slate-400 sm:px-6 md:grid-cols-[1fr_auto] lg:px-8"> <div> <p class="prompt text-sm">cat /var/status/zpmlabber</p> <p class="mt-2 font-semibold text-white">
+ZPMLabber <span class="workstation-label">workstation</span> <span class="status-online">online</span>.
+</p> <p class="mt-2 max-w-xl">Open-source developer tools, SDKs, packages, experiments, and engineering notes.</p> </div> <div class="flex flex-wrap gap-4 font-mono"> <a class="hover:text-cyan-200" href="https://github.com/zpmlabber">GitHub</a> <a class="hover:text-cyan-200" href="/search">Search</a> <a class="hover:text-cyan-200" href="/blog">Blog</a> </div> <p class="font-mono md:col-span-2">© 2026 ZPMLabber</p> </div> </footer> <a class="back-to-top" href="#site-top" aria-label="Back to top"> <span aria-hidden="true">^</span> <span>top</span> </a> <section class="search-modal" data-search-modal hidden aria-hidden="true"> <button class="search-modal__backdrop" type="button" data-search-close aria-label="Close search"></button> <div class="search-modal__frame" data-search-frame> <div class="search-modal__dialog" data-search-dialog role="dialog" aria-modal="true" aria-labelledby="site-search-title"> <section class="search-shell terminal-pane rounded-[1.35rem]" data-search-root="modal" data-search-limit="10"> <div class="terminal-topbar"> <span class="terminal-dots" aria-hidden="true"><span></span><span></span><span></span></span> <span>~/search</span> <button class="search-shell__close" type="button" data-search-close aria-label="Close search">
+:q quit
+</button> </div> <div class="search-shell__body"> <div class="flex flex-wrap items-center justify-between gap-3"> <div> <h2 id="site-search-title" class="search-shell__title">Command Palette Search</h2> <p class="search-shell__subtitle">Search blog posts, packages, projects, and notes with the generated Pagefind index.</p> </div> <div class="search-shell__shortcut-row" aria-hidden="true"> <span class="search-shell__kbd">Ctrl K</span> <span class="search-shell__kbd">Cmd K</span> <span class="search-shell__kbd">/</span> </div> </div> <label class="search-shell__prompt" for="site-search-modal-input"> <span class="search-shell__prompt-symbol">$</span> <span class="search-shell__prompt-label">search</span> <input id="site-search-modal-input" class="search-shell__input" type="search" data-search-input placeholder="search &quot;unlayer&quot;" autocomplete="off" spellcheck="false"> </label> <div class="search-shell__meta-row font-mono text-xs"> <span data-search-meta>panel://lookup</span> <span data-search-count>00</span> </div> <p class="search-shell__status" data-search-status data-state="idle" role="status" aria-live="polite">
+Type a query to inspect the static search index.
+</p> <ol class="search-results" data-search-results></ol> <p class="search-shell__note">
+Search works after production build. Run <span class="font-mono">npm run build</span> and <span class="font-mono">npm run preview</span> to test Pagefind locally.
+</p> </div> <noscript> <p class="search-shell__noscript">Interactive search requires JavaScript. You can still browse the site through the main navigation.</p> </noscript> </section> </div> </div> </section> <script>
+  (() => {
+    if (window.__zpmlabberSearchInit) return;
+    window.__zpmlabberSearchInit = true;
+
+    const modal = document.querySelector('[data-search-modal]');
+    const modalRoot = modal?.querySelector('[data-search-root="modal"]');
+    const modalDialog = modal?.querySelector('[data-search-dialog]');
+    const modalFrame = modal?.querySelector('[data-search-frame]');
+    const openTriggers = Array.from(document.querySelectorAll('[data-search-open]'));
+    const searchRoots = Array.from(document.querySelectorAll('[data-search-root]'));
+    let pagefindPromise;
+    let lastFocusedElement = null;
+
+    const isTypingTarget = (element) => {
+      if (!(element instanceof HTMLElement)) return false;
+      const tagName = element.tagName;
+      return element.isContentEditable || tagName === 'INPUT' || tagName === 'TEXTAREA' || tagName === 'SELECT';
+    };
+
+    const getPagefind = async () => {
+      if (!pagefindPromise) {
+        pagefindPromise = import('/pagefind/pagefind.js')
+          .then(async (pagefind) => {
+            if (typeof pagefind.options === 'function') {
+              await pagefind.options({});
+            }
+            return pagefind;
+          })
+          .catch(() => null);
+      }
+
+      return pagefindPromise;
+    };
+
+    const resultPath = (url) => {
+      if (!url) return '/';
+      try {
+        return new URL(url, window.location.origin).pathname || '/';
+      } catch {
+        return url;
+      }
+    };
+
+    const createResultItem = (data, index) => {
+      const item = document.createElement('li');
+      const link = document.createElement('a');
+      const path = resultPath(data.url);
+      const title = data.meta?.title || path;
+      const excerpt = data.excerpt || data.meta?.description || 'Indexed document available in the static search catalog.';
+
+      item.className = 'search-results__item';
+      link.className = 'search-result';
+      link.href = data.url || '/search';
+
+      const indexLabel = document.createElement('span');
+      indexLabel.className = 'search-result__index';
+      indexLabel.textContent = String(index + 1).padStart(2, '0');
+
+      const pathLabel = document.createElement('p');
+      pathLabel.className = 'search-result__path';
+      pathLabel.textContent = path;
+
+      const titleLabel = document.createElement('h3');
+      titleLabel.className = 'search-result__title';
+      titleLabel.textContent = title;
+
+      const excerptLabel = document.createElement('p');
+      excerptLabel.className = 'search-result__excerpt';
+      excerptLabel.innerHTML = excerpt;
+
+      link.append(indexLabel, pathLabel, titleLabel, excerptLabel);
+      item.append(link);
+      return item;
+    };
+
+    const initializeSearchRoot = (root) => {
+      const input = root.querySelector('[data-search-input]');
+      const status = root.querySelector('[data-search-status]');
+      const results = root.querySelector('[data-search-results]');
+      const count = root.querySelector('[data-search-count]');
+      const meta = root.querySelector('[data-search-meta]');
+      const limit = Number(root.dataset.searchLimit || '10');
+      let token = 0;
+      let debounceHandle;
+
+      if (!(input instanceof HTMLInputElement) || !(status instanceof HTMLElement) || !(results instanceof HTMLElement) || !(count instanceof HTMLElement) || !(meta instanceof HTMLElement)) {
+        return;
+      }
+
+      const setStatus = (message, state = 'idle') => {
+        status.dataset.state = state;
+        status.textContent = message;
+      };
+
+      const resetState = () => {
+        results.innerHTML = '';
+        count.textContent = '00';
+        meta.textContent = 'panel://lookup';
+        setStatus('Type a query to inspect the static search index.', 'idle');
+      };
+
+      const showIndexMissing = () => {
+        results.innerHTML = '';
+        count.textContent = '--';
+        meta.textContent = 'panel://offline';
+        setStatus('Search index is available after production build. Run npm run build && npm run preview to test search locally.', 'error');
+      };
+
+      const renderResults = (query, items, total) => {
+        results.innerHTML = '';
+
+        if (!items.length) {
+          count.textContent = '00';
+          meta.textContent = 'panel://empty';
+          setStatus(`No indexed pages matched "${query}".`, 'empty');
+          return;
+        }
+
+        const fragment = document.createDocumentFragment();
+        items.forEach((item, index) => fragment.append(createResultItem(item, index)));
+        results.append(fragment);
+        count.textContent = String(items.length).padStart(2, '0');
+        meta.textContent = 'panel://results';
+        setStatus(`Found ${total} indexed ${total === 1 ? 'page' : 'pages'} for "${query}".`, 'success');
+      };
+
+      const runSearch = async (query) => {
+        const searchTerm = query.trim();
+        const currentToken = ++token;
+
+        if (!searchTerm) {
+          resetState();
+          return;
+        }
+
+        results.innerHTML = '';
+        count.textContent = '..';
+        meta.textContent = 'panel://query';
+        setStatus(`Searching Pagefind for "${searchTerm}"...`, 'loading');
+
+        const pagefind = await getPagefind();
+
+        if (!pagefind) {
+          if (currentToken !== token) return;
+          showIndexMissing();
+          return;
+        }
+
+        try {
+          const search = await pagefind.search(searchTerm);
+          const matches = Array.isArray(search?.results) ? search.results.slice(0, limit) : [];
+          const hydrated = await Promise.all(matches.map((result) => result.data()));
+
+          if (currentToken !== token) return;
+
+          renderResults(searchTerm, hydrated, search?.unfilteredResultCount ?? hydrated.length);
+        } catch {
+          if (currentToken !== token) return;
+          showIndexMissing();
+        }
+      };
+
+      input.addEventListener('input', () => {
+        window.clearTimeout(debounceHandle);
+        debounceHandle = window.setTimeout(() => runSearch(input.value), 180);
+      });
+
+      resetState();
+    };
+
+    const openModal = (trigger) => {
+      if (!(modal instanceof HTMLElement) || !(modalRoot instanceof HTMLElement)) return;
+      lastFocusedElement = trigger instanceof HTMLElement ? trigger : document.activeElement;
+      modal.hidden = false;
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('search-modal-open');
+
+      const input = modalRoot.querySelector('[data-search-input]');
+      if (input instanceof HTMLInputElement) {
+        requestAnimationFrame(() => {
+          input.focus();
+          input.select();
+        });
+      }
+    };
+
+    const closeModal = () => {
+      if (!(modal instanceof HTMLElement) || modal.hidden) return;
+      modal.hidden = true;
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('search-modal-open');
+
+      if (lastFocusedElement instanceof HTMLElement) {
+        lastFocusedElement.focus();
+      }
+    };
+
+    searchRoots.forEach(initializeSearchRoot);
+
+    openTriggers.forEach((trigger) => {
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        openModal(trigger);
+      });
+    });
+
+    modal?.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) return;
+
+      if (target.hasAttribute('data-search-close')) {
+        closeModal();
+        return;
+      }
+
+      if (modalFrame instanceof HTMLElement && modalDialog instanceof HTMLElement && modalFrame.contains(target) && !modalDialog.contains(target)) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      const activeElement = document.activeElement;
+
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        openModal(activeElement);
+        return;
+      }
+
+      if (event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey && !isTypingTarget(activeElement)) {
+        event.preventDefault();
+        openModal(activeElement);
+        return;
+      }
+
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    });
+  })();
+</script> </body></html>

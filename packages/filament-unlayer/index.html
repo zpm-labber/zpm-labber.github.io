@@ -1,0 +1,464 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><script>
+      (() => {
+        const theme = localStorage.getItem('zpmlabber-theme') || 'system';
+        const resolved = theme === 'system'
+          ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+          : theme;
+        document.documentElement.dataset.themePreference = theme;
+        document.documentElement.dataset.theme = resolved;
+        document.documentElement.style.colorScheme = resolved;
+      })();
+    </script><title>Filament Unlayer | ZPMLabber Packages</title><meta name="description" content="Filament field and resource helpers for Unlayer-powered email editing."><link rel="canonical" href="https://zpm-labber.github.io/packages/filament-unlayer/"><meta property="og:title" content="Filament Unlayer | ZPMLabber Packages"><meta property="og:description" content="Filament field and resource helpers for Unlayer-powered email editing."><meta property="og:type" content="website"><meta property="og:url" content="https://zpm-labber.github.io/packages/filament-unlayer/"><meta property="og:image" content="https://zpm-labber.github.io/og-default.svg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Filament Unlayer | ZPMLabber Packages"><meta name="twitter:description" content="Filament field and resource helpers for Unlayer-powered email editing."><meta name="twitter:image" content="https://zpm-labber.github.io/og-default.svg"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/_astro/BaseLayout.JifKOp_t.css"></head> <body id="site-top"> <header class="sticky top-0 z-50 border-b border-cyan-300/10 bg-void/82 backdrop-blur-xl"> <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8" aria-label="Primary"> <a href="/" class="flex items-center gap-3 font-semibold"> <img class="h-10 w-10 rounded-md border border-cyan-300/35 bg-cyan-300/10 object-cover shadow-[0_0_24px_rgba(0,229,255,0.12)]" src="/zpmlabber.png" alt="ZPMLabber logo" loading="eager"> <span> <span class="block text-white">ZPMLabber</span> <span class="hidden font-mono text-[0.68rem] sm:block"> <span class="workstation-label">workstation:</span> <span class="status-online">online</span> </span> </span> </a> <div class="hidden items-center gap-1 rounded-lg border border-white/10 bg-white/[0.035] p-1 font-mono md:flex"> <a class="rounded-md px-3 py-2 text-xs text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100" href="/">/root</a><a class="rounded-md px-3 py-2 text-xs text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100" href="/about">/about</a><a class="rounded-md px-3 py-2 text-xs text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100" href="/blog">/blog</a><a class="rounded-md px-3 py-2 text-xs text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100" href="/projects">/projects</a><a class="rounded-md px-3 py-2 text-xs text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100" href="/packages">/packages</a><a class="rounded-md px-3 py-2 text-xs text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100" href="/ecosystems">/ecosystems</a> </div> <div class="flex items-center gap-2"> <div class="theme-switcher" aria-label="Theme preference"> <button type="button" data-theme-choice="system" aria-pressed="true">system</button> <button type="button" data-theme-choice="dark" aria-pressed="false">dark</button> <button type="button" data-theme-choice="light" aria-pressed="false">light</button> </div> <script>
+  (() => {
+    const storageKey = 'zpmlabber-theme';
+    const root = document.documentElement;
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    const buttons = Array.from(document.querySelectorAll('[data-theme-choice]'));
+
+    const storedTheme = () => localStorage.getItem(storageKey) || 'system';
+    const resolvedTheme = (theme) => theme === 'system' ? (media.matches ? 'dark' : 'light') : theme;
+
+    const applyTheme = (theme) => {
+      const resolved = resolvedTheme(theme);
+      root.dataset.themePreference = theme;
+      root.dataset.theme = resolved;
+      root.style.colorScheme = resolved;
+      buttons.forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.dataset.themeChoice === theme));
+      });
+    };
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const theme = button.dataset.themeChoice || 'system';
+        if (theme === 'system') {
+          localStorage.removeItem(storageKey);
+        } else {
+          localStorage.setItem(storageKey, theme);
+        }
+        applyTheme(theme);
+      });
+    });
+
+    media.addEventListener('change', () => {
+      if (storedTheme() === 'system') applyTheme('system');
+    });
+
+    applyTheme(storedTheme());
+  })();
+</script> <a class="search-trigger" href="/search" data-search-open aria-label="Open search"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"> <circle cx="11" cy="11" r="7"></circle> <path d="m20 20-3.5-3.5"></path> </svg> </a> <details class="relative md:hidden [&_summary::-webkit-details-marker]:hidden"> <summary class="block list-none cursor-pointer rounded-md border border-cyan-300/20 px-3 py-2 font-mono text-sm text-cyan-100 marker:content-none">menu</summary> <div class="absolute right-0 top-full z-50 mt-3 w-52"> <div class="terminal-pane rounded-lg p-2 shadow-[0_18px_48px_rgba(15,23,42,0.28)]"> <a class="block rounded-md px-3 py-2 font-mono text-sm text-slate-200 hover:bg-cyan-300/10" href="/">cd /root</a><a class="block rounded-md px-3 py-2 font-mono text-sm text-slate-200 hover:bg-cyan-300/10" href="/about">cd /about</a><a class="block rounded-md px-3 py-2 font-mono text-sm text-slate-200 hover:bg-cyan-300/10" href="/blog">cd /blog</a><a class="block rounded-md px-3 py-2 font-mono text-sm text-slate-200 hover:bg-cyan-300/10" href="/projects">cd /projects</a><a class="block rounded-md px-3 py-2 font-mono text-sm text-slate-200 hover:bg-cyan-300/10" href="/packages">cd /packages</a><a class="block rounded-md px-3 py-2 font-mono text-sm text-slate-200 hover:bg-cyan-300/10" href="/ecosystems">cd /ecosystems</a> </div> </div> </details> </div> </nav> </header> <main data-pagefind-body>  <article class="mx-auto max-w-4xl px-4 py-14 sm:px-6 lg:px-8"> <p class="prompt mb-5 text-sm">inspect package filament-unlayer</p> <div class="mb-5 flex flex-wrap gap-2"> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-cyan-300/30 bg-cyan-300/10 text-cyan-100 shadow-cyan-950/30"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> stable </span> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-violet-300/30 bg-violet-400/10 text-violet-100"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> Community SDKs </span> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> PHP </span> <span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> Laravel </span><span class="inline-flex items-center gap-1 rounded-md border px-2.5 py-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.08em] border-slate-500/20 bg-slate-400/[0.06] text-slate-300"> <span class="h-1.5 w-1.5 rounded-full bg-current opacity-80"></span> Filament </span> </div> <h1 class="text-4xl font-semibold text-white md:text-6xl">Filament Unlayer</h1> <p class="mt-5 text-lg leading-8 text-slate-300">Filament field and resource helpers for Unlayer-powered email editing.</p> <code class="mt-7 block overflow-x-auto rounded-lg border border-emerald-300/20 bg-slate-950/90 p-4 font-mono text-emerald-100"><span class="text-cyan-200">$</span> composer require community-sdks/filament-unlayer</code> <div class="mt-7 flex flex-wrap gap-3"> <a class="command-link" href="https://github.com/community-sdks/filament-unlayer">git remote</a> <a class="command-link" href="https://packagist.org/packages/community-sdks/filament-unlayer">open registry</a> </div> <div class="terminal-pane mt-10 rounded-lg p-6"> <div class="prose prose-lg prose-invert prose-zpm max-w-none"> <h2 id="unlayer-as-a-filament-field">Unlayer as a Filament Field</h2>
+<p>Email and page editors usually start as a simple requirement.</p>
+<p>Add a visual editor.
+Store the HTML.
+Let users change templates.
+Allow image uploads.
+Make it work inside the admin panel.</p>
+<p>Then the integration gets bigger.</p>
+<p>The editor needs to store both rendered HTML and editable design JSON. The browser runtime needs JavaScript. Templates need backend proxy routes because of CORS. Uploads need Laravel storage. And the whole thing still needs to feel like a normal Filament form field.</p>
+<p><strong>Filament Unlayer</strong> is the Filament layer for that workflow.</p>
+<p>It wraps the Unlayer editor as a Filament field and delegates the editor runtime to the Livewire package, which already sits on top of the Alpine and TypeScript packages.</p>
+<h2 id="why-this-package-exists">Why This Package Exists</h2>
+<p>Filament is usually where business users actually touch the system.</p>
+<p>A newsletter tool may have a campaign resource.
+A SaaS app may have transactional email templates.
+A CMS may have landing page blocks.
+A CRM may have reusable email layouts.</p>
+<p>In all of those cases, the editor should not feel like a separate app bolted onto the side.</p>
+<p>It should behave like a field.</p>
+<p>That is the point of this package.</p>
+<h2 id="built-on-the-unlayer-stack">Built on the Unlayer Stack</h2>
+<p>Filament Unlayer is the top layer of the Unlayer integration stack.</p>
+<p><code>unlayer-ts</code> provides the framework-free TypeScript editor wrapper.
+<code>unlayer-alpinejs</code> exposes that wrapper through Alpine.
+<code>unlayer-livewire</code> connects the browser editor to Laravel and Livewire.
+<code>unlayer-filament</code> makes the editor available as a Filament form field.</p>
+<p>That separation matters.</p>
+<p>The Filament package does not need to own every low-level browser concern. It can focus on the part that matters inside admin panels: field usage, form state, templates, views, and resource integration.</p>
+<h2 id="installation">Installation</h2>
+<p>Install the package with Composer:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">composer</span><span style="color:#9ECBFF"> require</span><span style="color:#9ECBFF"> community-sdks/unlayer-filament</span></span></code></pre>
+<p>The field depends on the browser asset published by the Livewire package, so install that asset too:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">php</span><span style="color:#9ECBFF"> artisan</span><span style="color:#9ECBFF"> unlayer-livewire:install</span></span></code></pre>
+<p>This publishes the compiled browser file to:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>public/unlayer-livewire.js</span></span></code></pre>
+<p>After upgrading the Livewire package or rebuilding the browser asset locally, publish the latest file again:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">php</span><span style="color:#9ECBFF"> artisan</span><span style="color:#9ECBFF"> vendor:publish</span><span style="color:#79B8FF"> --tag=unlayer-livewire-assets</span><span style="color:#79B8FF"> --force</span></span></code></pre>
+<p>If you want to customize upload storage or route behavior, publish the Livewire config:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">php</span><span style="color:#9ECBFF"> artisan</span><span style="color:#9ECBFF"> unlayer-livewire:install</span><span style="color:#79B8FF"> --config</span></span></code></pre>
+<p>You can also publish the Filament field views:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">php</span><span style="color:#9ECBFF"> artisan</span><span style="color:#9ECBFF"> vendor:publish</span><span style="color:#79B8FF"> --tag=</span><span style="color:#9ECBFF">"unlayer-filament-views"</span></span></code></pre>
+<h2 id="requirements">Requirements</h2>
+<p>The package targets the modern Laravel and Filament stack:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>PHP 8.3+</span></span>
+<span class="line"><span>Laravel 13+</span></span>
+<span class="line"><span>Filament 5.x</span></span></code></pre>
+<p>The current package line is for Filament 5.x.</p>
+<h2 id="model-state">Model State</h2>
+<p>The field stores the editor state as an array containing both <code>html</code> and <code>design</code>.</p>
+<p>That means the Eloquent model should cast the field to an array:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="php"><code><span class="line"><span style="color:#F97583">protected</span><span style="color:#E1E4E8"> $casts </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [</span></span>
+<span class="line"><span style="color:#9ECBFF">    'content'</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> 'array'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">];</span></span></code></pre>
+<p>This is important because Unlayer needs the design JSON to reopen and edit the layout later.</p>
+<p>The generated HTML is useful for rendering and sending.
+The design JSON is useful for editing.</p>
+<p>A good integration keeps both.</p>
+<h2 id="basic-usage">Basic Usage</h2>
+<p>Use the field like any other Filament form field:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="php"><code><span class="line"><span style="color:#F97583">use</span><span style="color:#79B8FF"> CommunitySdk\FilamentUnlayer\Forms\Components\Unlayer</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">Unlayer</span><span style="color:#F97583">::</span><span style="color:#B392F0">make</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'content'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">    -></span><span style="color:#B392F0">required</span><span style="color:#E1E4E8">();</span></span></code></pre>
+<p>That is the main goal of the package: Unlayer should feel like a normal Filament field.</p>
+<p>It can live inside a resource form, a custom page, or any Filament form schema where a field makes sense.</p>
+<h2 id="template-picker">Template Picker</h2>
+<p>The package can also enable Unlayer stock templates inside the editor.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="php"><code><span class="line"><span style="color:#79B8FF">Unlayer</span><span style="color:#F97583">::</span><span style="color:#B392F0">make</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'content'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">    -></span><span style="color:#B392F0">required</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#F97583">    -></span><span style="color:#B392F0">templatePicker</span><span style="color:#E1E4E8">();</span></span></code></pre>
+<p>The picker loads templates through the Livewire package’s same-origin backend proxy and applies the selected design directly to the initialized editor.</p>
+<p>That keeps the browser integration clean and avoids direct frontend calls to Unlayer’s template endpoints.</p>
+<h2 id="custom-template-search">Custom Template Search</h2>
+<p>The default stock template query can be customized:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="php"><code><span class="line"><span style="color:#79B8FF">Unlayer</span><span style="color:#F97583">::</span><span style="color:#B392F0">make</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'content'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">    -></span><span style="color:#B392F0">templatePicker</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">options</span><span style="color:#E1E4E8">: [</span></span>
+<span class="line"><span style="color:#9ECBFF">        'type'</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> 'email'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        'premium'</span><span style="color:#F97583"> =></span><span style="color:#79B8FF"> false</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        'limit'</span><span style="color:#F97583"> =></span><span style="color:#79B8FF"> 20</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        'offset'</span><span style="color:#F97583"> =></span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        'collection'</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> ''</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        'sort'</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> 'recent'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    ]);</span></span></code></pre>
+<p>The type can be changed depending on the editor use case:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="php"><code><span class="line"><span style="color:#9ECBFF">'type'</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> 'email'</span></span></code></pre>
+<p>or:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="php"><code><span class="line"><span style="color:#9ECBFF">'type'</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> 'web'</span></span></code></pre>
+<p>That makes the same field useful for email editors and page-style editors.</p>
+<h2 id="custom-picker-labels">Custom Picker Labels</h2>
+<p>The template picker UI can also be adjusted:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="php"><code><span class="line"><span style="color:#79B8FF">Unlayer</span><span style="color:#F97583">::</span><span style="color:#B392F0">make</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'content'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">    -></span><span style="color:#B392F0">templatePicker</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#F97583">    -></span><span style="color:#B392F0">templatePickerOptions</span><span style="color:#E1E4E8">([</span></span>
+<span class="line"><span style="color:#9ECBFF">        'label'</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> 'Template Editor'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        'triggerLabel'</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> 'Search templates'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        'title'</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> 'Templates'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        'placeholder'</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> 'Search templates'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        'emptyText'</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> 'No templates found.'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    ]);</span></span></code></pre>
+<p>This is useful when the same field appears in different contexts.</p>
+<p>A campaign editor may call them email templates.
+A page builder may call them layouts.
+A product might use its own wording.</p>
+<p>The package should not force one label style on every application.</p>
+<h2 id="live-syncing">Live Syncing</h2>
+<p>Live syncing is disabled by default.</p>
+<p>That is a sensible default because visual editors can produce a lot of changes very quickly.</p>
+<p>If every editor change should sync immediately through Livewire, it can be enabled explicitly:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="php"><code><span class="line"><span style="color:#79B8FF">Unlayer</span><span style="color:#F97583">::</span><span style="color:#B392F0">make</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'content'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">    -></span><span style="color:#B392F0">syncLive</span><span style="color:#E1E4E8">();</span></span></code></pre>
+<p>This gives the application control over the tradeoff between immediate state syncing and fewer Livewire updates.</p>
+<h2 id="additional-unlayer-options">Additional Unlayer Options</h2>
+<p>If the application needs to pass more options into Unlayer, the field supports additional editor options:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="php"><code><span class="line"><span style="color:#79B8FF">Unlayer</span><span style="color:#F97583">::</span><span style="color:#B392F0">make</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'description'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">    -></span><span style="color:#B392F0">additionalOptions</span><span style="color:#E1E4E8">([</span></span>
+<span class="line"><span style="color:#9ECBFF">        'option'</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> 'value'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    ]);</span></span></code></pre>
+<p>Those options are merged with the defaults used by the package.</p>
+<p>That keeps the common path simple while still allowing deeper Unlayer configuration when needed.</p>
+<h2 id="why-the-proxy-matters">Why the Proxy Matters</h2>
+<p>The built-in Livewire proxy exists for a practical reason.</p>
+<p>Unlayer’s stock template endpoints do not allow direct browser CORS requests.</p>
+<p>The clean flow is:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>Filament field -> Livewire package proxy route -> Unlayer template API</span></span></code></pre>
+<p>The browser talks to your Laravel app. Laravel talks to Unlayer.</p>
+<p>This avoids CORS issues and gives Laravel control over routing, middleware, authentication, and future customization.</p>
+<h2 id="template-mapping">Template Mapping</h2>
+<p>Behind the proxy, the field’s template picker options map to Unlayer’s upstream request shape.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>search     -> filter.name</span></span>
+<span class="line"><span>type       -> filter.type</span></span>
+<span class="line"><span>premium    -> filter.premium</span></span>
+<span class="line"><span>limit      -> perPage</span></span>
+<span class="line"><span>offset     -> page</span></span>
+<span class="line"><span>collection -> filter.collection</span></span>
+<span class="line"><span>sort       -> filter.sortBy</span></span></code></pre>
+<p>That means the Filament API can stay readable while the backend handles the request shape expected by Unlayer.</p>
+<h2 id="quick-demo">Quick Demo</h2>
+<p>The package ships with a quick demo installer through <code>zpmlabs/laravel-package-quick-demo</code>.</p>
+<p>Install the package and then install the bundled demo:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">composer</span><span style="color:#9ECBFF"> require</span><span style="color:#9ECBFF"> community-sdks/unlayer-filament</span></span>
+<span class="line"><span style="color:#B392F0">php</span><span style="color:#9ECBFF"> artisan</span><span style="color:#9ECBFF"> quick-demo:install</span><span style="color:#9ECBFF"> unlayer-filament-demo</span></span></code></pre>
+<p>To inspect the registered demo or see route details:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">php</span><span style="color:#9ECBFF"> artisan</span><span style="color:#9ECBFF"> quick-demo:show</span><span style="color:#9ECBFF"> unlayer-filament-demo</span></span></code></pre>
+<p>The bundled demo includes an email editor tab and a web/page editor tab, both backed by isolated quick-demo data.</p>
+<p>That is useful because editor packages are easier to evaluate when you can test the full field behavior inside a real Laravel app without wiring everything manually first.</p>
+<h2 id="where-it-fits">Where It Fits</h2>
+<p>Filament Unlayer is useful anywhere a visual editor belongs inside an admin panel.</p>
+<p>Newsletter campaign builders.
+Transactional email templates.
+Marketing email layouts.
+CMS page sections.
+Landing page drafts.
+Internal template libraries.</p>
+<p>The package keeps the editor close to Filament’s form system, while the lower-level packages handle the browser runtime and Livewire bridge.</p>
+<h2 id="small-package-clear-layer">Small Package, Clear Layer</h2>
+<p>This package is not trying to replace Unlayer, Livewire, or Filament.</p>
+<p>It is a focused integration layer.</p>
+<p>That makes it easier to maintain and easier to understand.</p>
+<p>The field is the Filament-facing piece. The Livewire package handles Laravel state and proxy routes. The Alpine package handles the browser component. The TypeScript package handles the editor wrapper.</p>
+<p>Each layer has a job.</p>
+<p>That is the kind of structure I like for package ecosystems: small parts, clear responsibility, and enough flexibility to compose them into real products.</p>
+<h2 id="package">Package</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">composer</span><span style="color:#9ECBFF"> require</span><span style="color:#9ECBFF"> community-sdks/unlayer-filament</span></span></code></pre>
+<p>Repository:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>https://github.com/community-sdks/unlayer-filament</span></span></code></pre>
+<p>Registry:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>https://packagist.org/packages/community-sdks/unlayer-filament</span></span></code></pre> </div> </div> </article>  </main> <footer class="border-t border-cyan-300/10 bg-void/65"> <div class="mx-auto grid max-w-6xl gap-8 px-4 py-10 text-sm text-slate-400 sm:px-6 md:grid-cols-[1fr_auto] lg:px-8"> <div> <p class="prompt text-sm">cat /var/status/zpmlabber</p> <p class="mt-2 font-semibold text-white">
+ZPMLabber <span class="workstation-label">workstation</span> <span class="status-online">online</span>.
+</p> <p class="mt-2 max-w-xl">Open-source developer tools, SDKs, packages, experiments, and engineering notes.</p> </div> <div class="flex flex-wrap gap-4 font-mono"> <a class="hover:text-cyan-200" href="https://github.com/zpmlabber">GitHub</a> <a class="hover:text-cyan-200" href="/search">Search</a> <a class="hover:text-cyan-200" href="/blog">Blog</a> </div> <p class="font-mono md:col-span-2">© 2026 ZPMLabber</p> </div> </footer> <a class="back-to-top" href="#site-top" aria-label="Back to top"> <span aria-hidden="true">^</span> <span>top</span> </a> <section class="search-modal" data-search-modal hidden aria-hidden="true"> <button class="search-modal__backdrop" type="button" data-search-close aria-label="Close search"></button> <div class="search-modal__frame" data-search-frame> <div class="search-modal__dialog" data-search-dialog role="dialog" aria-modal="true" aria-labelledby="site-search-title"> <section class="search-shell terminal-pane rounded-[1.35rem]" data-search-root="modal" data-search-limit="10"> <div class="terminal-topbar"> <span class="terminal-dots" aria-hidden="true"><span></span><span></span><span></span></span> <span>~/search</span> <button class="search-shell__close" type="button" data-search-close aria-label="Close search">
+:q quit
+</button> </div> <div class="search-shell__body"> <div class="flex flex-wrap items-center justify-between gap-3"> <div> <h2 id="site-search-title" class="search-shell__title">Command Palette Search</h2> <p class="search-shell__subtitle">Search blog posts, packages, projects, and notes with the generated Pagefind index.</p> </div> <div class="search-shell__shortcut-row" aria-hidden="true"> <span class="search-shell__kbd">Ctrl K</span> <span class="search-shell__kbd">Cmd K</span> <span class="search-shell__kbd">/</span> </div> </div> <label class="search-shell__prompt" for="site-search-modal-input"> <span class="search-shell__prompt-symbol">$</span> <span class="search-shell__prompt-label">search</span> <input id="site-search-modal-input" class="search-shell__input" type="search" data-search-input placeholder="search &quot;unlayer&quot;" autocomplete="off" spellcheck="false"> </label> <div class="search-shell__meta-row font-mono text-xs"> <span data-search-meta>panel://lookup</span> <span data-search-count>00</span> </div> <p class="search-shell__status" data-search-status data-state="idle" role="status" aria-live="polite">
+Type a query to inspect the static search index.
+</p> <ol class="search-results" data-search-results></ol> <p class="search-shell__note">
+Search works after production build. Run <span class="font-mono">npm run build</span> and <span class="font-mono">npm run preview</span> to test Pagefind locally.
+</p> </div> <noscript> <p class="search-shell__noscript">Interactive search requires JavaScript. You can still browse the site through the main navigation.</p> </noscript> </section> </div> </div> </section> <script>
+  (() => {
+    if (window.__zpmlabberSearchInit) return;
+    window.__zpmlabberSearchInit = true;
+
+    const modal = document.querySelector('[data-search-modal]');
+    const modalRoot = modal?.querySelector('[data-search-root="modal"]');
+    const modalDialog = modal?.querySelector('[data-search-dialog]');
+    const modalFrame = modal?.querySelector('[data-search-frame]');
+    const openTriggers = Array.from(document.querySelectorAll('[data-search-open]'));
+    const searchRoots = Array.from(document.querySelectorAll('[data-search-root]'));
+    let pagefindPromise;
+    let lastFocusedElement = null;
+
+    const isTypingTarget = (element) => {
+      if (!(element instanceof HTMLElement)) return false;
+      const tagName = element.tagName;
+      return element.isContentEditable || tagName === 'INPUT' || tagName === 'TEXTAREA' || tagName === 'SELECT';
+    };
+
+    const getPagefind = async () => {
+      if (!pagefindPromise) {
+        pagefindPromise = import('/pagefind/pagefind.js')
+          .then(async (pagefind) => {
+            if (typeof pagefind.options === 'function') {
+              await pagefind.options({});
+            }
+            return pagefind;
+          })
+          .catch(() => null);
+      }
+
+      return pagefindPromise;
+    };
+
+    const resultPath = (url) => {
+      if (!url) return '/';
+      try {
+        return new URL(url, window.location.origin).pathname || '/';
+      } catch {
+        return url;
+      }
+    };
+
+    const createResultItem = (data, index) => {
+      const item = document.createElement('li');
+      const link = document.createElement('a');
+      const path = resultPath(data.url);
+      const title = data.meta?.title || path;
+      const excerpt = data.excerpt || data.meta?.description || 'Indexed document available in the static search catalog.';
+
+      item.className = 'search-results__item';
+      link.className = 'search-result';
+      link.href = data.url || '/search';
+
+      const indexLabel = document.createElement('span');
+      indexLabel.className = 'search-result__index';
+      indexLabel.textContent = String(index + 1).padStart(2, '0');
+
+      const pathLabel = document.createElement('p');
+      pathLabel.className = 'search-result__path';
+      pathLabel.textContent = path;
+
+      const titleLabel = document.createElement('h3');
+      titleLabel.className = 'search-result__title';
+      titleLabel.textContent = title;
+
+      const excerptLabel = document.createElement('p');
+      excerptLabel.className = 'search-result__excerpt';
+      excerptLabel.innerHTML = excerpt;
+
+      link.append(indexLabel, pathLabel, titleLabel, excerptLabel);
+      item.append(link);
+      return item;
+    };
+
+    const initializeSearchRoot = (root) => {
+      const input = root.querySelector('[data-search-input]');
+      const status = root.querySelector('[data-search-status]');
+      const results = root.querySelector('[data-search-results]');
+      const count = root.querySelector('[data-search-count]');
+      const meta = root.querySelector('[data-search-meta]');
+      const limit = Number(root.dataset.searchLimit || '10');
+      let token = 0;
+      let debounceHandle;
+
+      if (!(input instanceof HTMLInputElement) || !(status instanceof HTMLElement) || !(results instanceof HTMLElement) || !(count instanceof HTMLElement) || !(meta instanceof HTMLElement)) {
+        return;
+      }
+
+      const setStatus = (message, state = 'idle') => {
+        status.dataset.state = state;
+        status.textContent = message;
+      };
+
+      const resetState = () => {
+        results.innerHTML = '';
+        count.textContent = '00';
+        meta.textContent = 'panel://lookup';
+        setStatus('Type a query to inspect the static search index.', 'idle');
+      };
+
+      const showIndexMissing = () => {
+        results.innerHTML = '';
+        count.textContent = '--';
+        meta.textContent = 'panel://offline';
+        setStatus('Search index is available after production build. Run npm run build && npm run preview to test search locally.', 'error');
+      };
+
+      const renderResults = (query, items, total) => {
+        results.innerHTML = '';
+
+        if (!items.length) {
+          count.textContent = '00';
+          meta.textContent = 'panel://empty';
+          setStatus(`No indexed pages matched "${query}".`, 'empty');
+          return;
+        }
+
+        const fragment = document.createDocumentFragment();
+        items.forEach((item, index) => fragment.append(createResultItem(item, index)));
+        results.append(fragment);
+        count.textContent = String(items.length).padStart(2, '0');
+        meta.textContent = 'panel://results';
+        setStatus(`Found ${total} indexed ${total === 1 ? 'page' : 'pages'} for "${query}".`, 'success');
+      };
+
+      const runSearch = async (query) => {
+        const searchTerm = query.trim();
+        const currentToken = ++token;
+
+        if (!searchTerm) {
+          resetState();
+          return;
+        }
+
+        results.innerHTML = '';
+        count.textContent = '..';
+        meta.textContent = 'panel://query';
+        setStatus(`Searching Pagefind for "${searchTerm}"...`, 'loading');
+
+        const pagefind = await getPagefind();
+
+        if (!pagefind) {
+          if (currentToken !== token) return;
+          showIndexMissing();
+          return;
+        }
+
+        try {
+          const search = await pagefind.search(searchTerm);
+          const matches = Array.isArray(search?.results) ? search.results.slice(0, limit) : [];
+          const hydrated = await Promise.all(matches.map((result) => result.data()));
+
+          if (currentToken !== token) return;
+
+          renderResults(searchTerm, hydrated, search?.unfilteredResultCount ?? hydrated.length);
+        } catch {
+          if (currentToken !== token) return;
+          showIndexMissing();
+        }
+      };
+
+      input.addEventListener('input', () => {
+        window.clearTimeout(debounceHandle);
+        debounceHandle = window.setTimeout(() => runSearch(input.value), 180);
+      });
+
+      resetState();
+    };
+
+    const openModal = (trigger) => {
+      if (!(modal instanceof HTMLElement) || !(modalRoot instanceof HTMLElement)) return;
+      lastFocusedElement = trigger instanceof HTMLElement ? trigger : document.activeElement;
+      modal.hidden = false;
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('search-modal-open');
+
+      const input = modalRoot.querySelector('[data-search-input]');
+      if (input instanceof HTMLInputElement) {
+        requestAnimationFrame(() => {
+          input.focus();
+          input.select();
+        });
+      }
+    };
+
+    const closeModal = () => {
+      if (!(modal instanceof HTMLElement) || modal.hidden) return;
+      modal.hidden = true;
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('search-modal-open');
+
+      if (lastFocusedElement instanceof HTMLElement) {
+        lastFocusedElement.focus();
+      }
+    };
+
+    searchRoots.forEach(initializeSearchRoot);
+
+    openTriggers.forEach((trigger) => {
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        openModal(trigger);
+      });
+    });
+
+    modal?.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) return;
+
+      if (target.hasAttribute('data-search-close')) {
+        closeModal();
+        return;
+      }
+
+      if (modalFrame instanceof HTMLElement && modalDialog instanceof HTMLElement && modalFrame.contains(target) && !modalDialog.contains(target)) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      const activeElement = document.activeElement;
+
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        openModal(activeElement);
+        return;
+      }
+
+      if (event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey && !isTypingTarget(activeElement)) {
+        event.preventDefault();
+        openModal(activeElement);
+        return;
+      }
+
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    });
+  })();
+</script> </body></html>
